@@ -12,7 +12,7 @@ import java.util.Map;
 public interface UserDAO {
 	int checkId(String id) throws SQLException;
 
-	void registUser(Map<String, String> map) throws SQLException;
+	void registerUser(Map<String, String> map) throws SQLException;
 
 	void updateUser(Map<String, String> map) throws SQLException;
 

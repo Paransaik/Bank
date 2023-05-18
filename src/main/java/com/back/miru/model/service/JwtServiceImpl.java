@@ -51,7 +51,7 @@ public class JwtServiceImpl implements JwtService {
         String jwt = request.getHeader("access-token");
         Jws<Claims> claims;
         try {
-            claims = Jwts.parser().setSigningKey(SALT.getBytes("UTF-8")).parseClaimsJws(jwt);
+            claims = Jwts.parser().setSigningKey(SALT.getBytes(StandardCharsets.UTF_8)).parseClaimsJws(jwt);
         } catch (Exception e) {
             logger.error(e.getMessage());
 //			}

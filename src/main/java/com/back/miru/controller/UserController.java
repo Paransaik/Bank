@@ -56,7 +56,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "회원정보수정", notes = "", response = Map.class)
+    @ApiOperation(value = "회원정보수정", response = Map.class)
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateUser(
             @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) @PathVariable String id,
@@ -73,7 +73,7 @@ public class UserController {
             status = HttpStatus.ACCEPTED;
 
         } catch (Exception e) {
-            logger.error("수정 실패 : {}", e);
+            logger.error("수정 실패 : {0}", e);
             resultMap.put("message", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
 
@@ -81,7 +81,7 @@ public class UserController {
         return new ResponseEntity<>(resultMap, status);
     }
 
-    @ApiOperation(value = "회원정보삭제", notes = "", response = Map.class)
+    @ApiOperation(value = "회원정보삭제", response = Map.class)
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> deleteUser(
             @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) @PathVariable String id) {
@@ -95,7 +95,7 @@ public class UserController {
             status = HttpStatus.ACCEPTED;
 
         } catch (Exception e) {
-            logger.error("삭제 실패 : {}", e);
+            logger.error("삭제 실패 : {0}", e);
             resultMap.put("message", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
 
@@ -124,7 +124,7 @@ public class UserController {
                 status = HttpStatus.ACCEPTED;
             }
         } catch (Exception e) {
-            logger.error("로그인 실패 : {}", e);
+            logger.error("로그인 실패 : {0}", e);
             resultMap.put("message", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
@@ -154,7 +154,7 @@ public class UserController {
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
-                logger.error("정보조회 실패 : {}", e);
+                logger.error("정보 조회 실패 : {0}", e);
                 resultMap.put("message", e.getMessage());
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }

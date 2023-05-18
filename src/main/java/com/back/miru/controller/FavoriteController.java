@@ -35,7 +35,7 @@ public class FavoriteController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<Map<String, Object>> registFavoriteUser(@RequestBody Map<String, String> map, HttpServletRequest request) throws Exception {
+    public ResponseEntity<Map<String, Object>> registerFavoriteUser(@RequestBody Map<String, String> map, HttpServletRequest request) {
         System.out.println("resistFavorite controller 시작");
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
@@ -46,7 +46,7 @@ public class FavoriteController {
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
-                logger.error("정보조회 실패 : {}", e);
+                logger.error("정보 조회 실패 : {0}", e);
                 resultMap.put("message", e.getMessage());
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
@@ -55,7 +55,7 @@ public class FavoriteController {
             resultMap.put("message", FAIL);
             status = HttpStatus.ACCEPTED;
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     @DeleteMapping("/user/{followId}")
@@ -70,7 +70,7 @@ public class FavoriteController {
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
-                logger.error("정보조회 실패 : {}", e);
+                logger.error("정보 조회 실패 : {0}", e);
                 resultMap.put("message", e.getMessage());
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
@@ -79,7 +79,7 @@ public class FavoriteController {
             resultMap.put("message", FAIL);
             status = HttpStatus.ACCEPTED;
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     @GetMapping("/user/{id}")
@@ -96,7 +96,7 @@ public class FavoriteController {
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
-                logger.error("정보조회 실패 : {}", e);
+                logger.error("정보 조회 실패 : {0}", e);
                 resultMap.put("message", e.getMessage());
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
@@ -105,12 +105,12 @@ public class FavoriteController {
             resultMap.put("message", FAIL);
             status = HttpStatus.ACCEPTED;
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     // 좋아요 사진 등록
     @PostMapping("/picture")
-    public ResponseEntity<Map<String, Object>> registFavoritePicture(@RequestBody Map<String, String> map, HttpServletRequest request) throws Exception {
+    public ResponseEntity<Map<String, Object>> registFavoritePicture(@RequestBody Map<String, String> map, HttpServletRequest request) {
         System.out.println("resistFavorite controller 시작");
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
@@ -121,7 +121,7 @@ public class FavoriteController {
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
-                logger.error("정보조회 실패 : {}", e);
+                logger.error("정보 조회 실패 : {0}", e);
                 resultMap.put("message", e.getMessage());
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
@@ -130,7 +130,7 @@ public class FavoriteController {
             resultMap.put("message", FAIL);
             status = HttpStatus.ACCEPTED;
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     // 좋아요 사진 제거
@@ -146,7 +146,7 @@ public class FavoriteController {
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
-                logger.error("정보조회 실패 : {}", e);
+                logger.error("정보 조회 실패 : {0}", e);
                 resultMap.put("message", e.getMessage());
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
@@ -155,7 +155,7 @@ public class FavoriteController {
             resultMap.put("message", FAIL);
             status = HttpStatus.ACCEPTED;
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     @GetMapping("/picture/{id}")
@@ -174,7 +174,7 @@ public class FavoriteController {
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
-                logger.error("정보조회 실패 : {}", e);
+                logger.error("정보 조회 실패 : {0}", e);
                 resultMap.put("message", e.getMessage());
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
@@ -183,6 +183,6 @@ public class FavoriteController {
             resultMap.put("message", FAIL);
             status = HttpStatus.ACCEPTED;
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 }

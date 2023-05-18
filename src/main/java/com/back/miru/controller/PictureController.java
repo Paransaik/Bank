@@ -48,7 +48,7 @@ public class PictureController {
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
-                logger.error("파일 명화 변경 실패 : {}", e);
+                logger.error("파일 명화 변경 실패 : {0}", e);
                 resultMap.put("message", e.getMessage());
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
@@ -57,7 +57,7 @@ public class PictureController {
             resultMap.put("message", FAIL);
             status = HttpStatus.ACCEPTED;
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     // 전체 사진 목록 불러오기
@@ -74,12 +74,12 @@ public class PictureController {
             resultMap.put("message", SUCCESS);
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
-            logger.error("목록 불러오기 실패 : {}", e);
+            logger.error("목록 불러오기 실패 : {0}", e);
             resultMap.put("message", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
-            return new ResponseEntity<Map<String, Object>>(resultMap, status);
+            return new ResponseEntity<>(resultMap, status);
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     @PostMapping("/{keyword}")
@@ -94,12 +94,12 @@ public class PictureController {
             resultMap.put("message", SUCCESS);
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
-            logger.error("정보 조회 실패 : {}", e);
+            logger.error("정보 조회 실패 : {0}", e);
             resultMap.put("message", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
-            return new ResponseEntity<Map<String, Object>>(resultMap, status);
+            return new ResponseEntity<>(resultMap, status);
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     // 사진 디테일
@@ -119,7 +119,7 @@ public class PictureController {
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
-                logger.error("정보 조회 실패 : {}", e);
+                logger.error("정보 조회 실패 : {0}", e);
                 resultMap.put("message", e.getMessage());
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
@@ -128,12 +128,12 @@ public class PictureController {
             resultMap.put("message", FAIL);
             status = HttpStatus.ACCEPTED;
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     // 사진 등록
     @PostMapping("/upload")
-    public ResponseEntity<Map<String, Object>> registPicture(@RequestBody Map<String, String> map, HttpServletRequest request) throws Exception {
+    public ResponseEntity<Map<String, Object>> registPicture(@RequestBody Map<String, String> map, HttpServletRequest request) {
         System.out.println("registPicture 시작");
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
@@ -144,7 +144,7 @@ public class PictureController {
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
-                logger.error("파일 업로드 실패 : {}", e);
+                logger.error("파일 업로드 실패 : {0}", e);
                 resultMap.put("message", e.getMessage());
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
@@ -153,7 +153,7 @@ public class PictureController {
             resultMap.put("message", FAIL);
             status = HttpStatus.ACCEPTED;
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     // 사진 삭제
@@ -169,7 +169,7 @@ public class PictureController {
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
-                logger.error("정보조회 실패 : {}", e);
+                logger.error("정보 조회 실패 : {0}", e);
                 resultMap.put("message", e.getMessage());
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
@@ -178,7 +178,7 @@ public class PictureController {
             resultMap.put("message", FAIL);
             status = HttpStatus.ACCEPTED;
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
 //    @GetMapping("/picture/{id}")
@@ -194,7 +194,7 @@ public class PictureController {
 //                resultMap.put("message", SUCCESS);
 //                status = HttpStatus.ACCEPTED;
 //            } catch (Exception e) {
-//                logger.error("정보조회 실패 : {}", e);
+//                logger.error("정보 조회 실패 : {0}", e);
 //                resultMap.put("message", e.getMessage());
 //                status = HttpStatus.INTERNAL_SERVER_ERROR;
 //            }
@@ -217,7 +217,7 @@ public class PictureController {
 //                resultMap.put("message", SUCCESS);
 //                status = HttpStatus.ACCEPTED;
 //            } catch (Exception e) {
-//                logger.error("정보조회 실패 : {}", e);
+//                logger.error("정보 조회 실패 : {0}", e);
 //                resultMap.put("message", e.getMessage());
 //                status = HttpStatus.INTERNAL_SERVER_ERROR;
 //            }
