@@ -26,11 +26,14 @@ public class PictureController {
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
+    private final PictureService pictureService;
 
     @Autowired
-    private PictureService pictureService;
+    public PictureController(JwtService jwtService, PictureService pictureService) {
+        this.jwtService = jwtService;
+        this.pictureService = pictureService;
+    }
 
     @PostMapping("/transfer")
     public ResponseEntity<Map<String, Object>> transferPicture(@RequestBody HashMap<String, String> map, HttpServletRequest request) {

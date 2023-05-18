@@ -26,11 +26,14 @@ public class UserContorller {
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
+    public UserContorller(JwtService jwtService, UserService userService) {
+        this.jwtService = jwtService;
+        this.userService = userService;
+    }
 
     @GetMapping("/check/{id}")
     public int checkId(@PathVariable String id) throws Exception {

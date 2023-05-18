@@ -25,11 +25,15 @@ public class FavoriteController {
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
+
+    private final FavoriteService favoriteService;
 
     @Autowired
-    private FavoriteService favoriteService;
+    public FavoriteController(JwtService jwtService, FavoriteService favoriteService) {
+        this.jwtService = jwtService;
+        this.favoriteService = favoriteService;
+    }
 
     @PostMapping("/user")
     public ResponseEntity<Map<String, Object>> registFavoriteUser(@RequestBody Map<String, String> map, HttpServletRequest request) throws Exception {
