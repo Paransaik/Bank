@@ -1,6 +1,5 @@
 package com.back.miru.controller;
 
-import com.back.miru.model.dto.FavoritePicture;
 import com.back.miru.model.dto.FavoriteUser;
 import com.back.miru.model.dto.Picture;
 import com.back.miru.model.service.FavoriteService;
@@ -43,7 +42,7 @@ public class FavoriteController {
         if (jwtService.isUsable(request.getHeader("token"))) {
             logger.info("사용 가능한 토큰!!!");
             try {
-                favoriteService.registFavoriteUser(map);
+                favoriteService.registerFavoriteUser(map);
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
@@ -118,7 +117,7 @@ public class FavoriteController {
         if (jwtService.isUsable(request.getHeader("token"))) {
             logger.info("사용 가능한 토큰!!!");
             try {
-                favoriteService.registFavoritePicture(map);
+                favoriteService.registerFavoritePicture(map);
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {

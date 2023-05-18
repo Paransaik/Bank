@@ -9,7 +9,7 @@ import java.util.Map;
 public interface UserService {
 	int checkId(String id) throws Exception;
 
-	void registUser(Map<String, String> map) throws Exception;
+	void registerUser(Map<String, String> map) throws Exception;
 
 	void updateUser(Map<String, String> map) throws Exception;
 

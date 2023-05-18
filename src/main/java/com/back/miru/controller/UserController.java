@@ -21,8 +21,8 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 @RequestMapping("/user")
-public class UserContorller {
-    public static final Logger logger = LoggerFactory.getLogger(UserContorller.class);
+public class UserController {
+    public static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
@@ -30,7 +30,7 @@ public class UserContorller {
     private final UserService userService;
 
     @Autowired
-    public UserContorller(JwtService jwtService, UserService userService) {
+    public UserController(JwtService jwtService, UserService userService) {
         this.jwtService = jwtService;
         this.userService = userService;
     }
@@ -38,23 +38,21 @@ public class UserContorller {
     @GetMapping("/check/{id}")
     public int checkId(@PathVariable String id) throws Exception {
         System.out.println("checkId controller 시작");
-        int cnt = 1;
-        cnt = userService.checkId(id);
-        return cnt;
+        return userService.checkId(id);
     }
 
     @PostMapping
     public ResponseEntity<String> registUser(@RequestBody Map<String, String> map) throws Exception {
         System.out.println("resister controller 시작");
-        userService.registUser(map);
+        userService.registerUser(map);
         System.out.println("map : " + map);
         User loginUser = userService.loginUser(map.get("id"), map.get("password"));
         String token = "";
         if (loginUser != null) {
             token = jwtService.create("id", loginUser.getId(), "token");
-            return new ResponseEntity<String>(token, HttpStatus.OK);
+            return new ResponseEntity<>(token, HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>(token, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(token, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -65,7 +63,7 @@ public class UserContorller {
             @RequestBody Map<String, String> map) {
         System.out.println("update User 호출");
         Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = null;
+        HttpStatus status;
 
         try {
             map.put("id", id);
@@ -80,7 +78,7 @@ public class UserContorller {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
 
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     @ApiOperation(value = "회원정보삭제", notes = "", response = Map.class)
@@ -89,7 +87,7 @@ public class UserContorller {
             @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) @PathVariable String id) {
         System.out.println("delete user 호출");
         Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = null;
+        HttpStatus status;
         System.out.println(id);
         try {
             userService.deleteUser(id);
@@ -103,7 +101,7 @@ public class UserContorller {
 
         }
         System.out.println(status);
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     @ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
@@ -112,7 +110,7 @@ public class UserContorller {
             @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) User user) {
         System.out.println("login contoller 호출");
         Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = null;
+        HttpStatus status;
         try {
             User loginUser = userService.loginUser(user.getId(), user.getPassword());
             if (loginUser != null) {
@@ -130,15 +128,15 @@ public class UserContorller {
             resultMap.put("message", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Integer> checkPasswordFind(@PathVariable String id, @RequestParam String email) throws Exception {
-        int cnt = 0;
+        int cnt;
         System.out.println("checkPasswordFind 실행");
         cnt = userService.checkPasswordFind(id, email);
-        return new ResponseEntity<Integer>(cnt, HttpStatus.OK);
+        return new ResponseEntity<>(cnt, HttpStatus.OK);
     }
 
     @ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
@@ -165,30 +163,29 @@ public class UserContorller {
             resultMap.put("message", FAIL);
             status = HttpStatus.ACCEPTED;
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, status);
     }
 
     @GetMapping("/interest/{id}")
     public ResponseEntity<List<Interest>> getInterestList(@PathVariable String id) throws Exception {
-        return new ResponseEntity<List<Interest>>(userService.getInterestList(id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getInterestList(id), HttpStatus.OK);
     }
 
     @PostMapping("/interest")
     public ResponseEntity<String> addInterest(@RequestBody Map<String, String> map) throws Exception {
         if (userService.resisterInterest(map)) {
-            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/interest/remove")
     public ResponseEntity<String> deleteInterest(@RequestBody Map<String, String> map) throws Exception {
         if (userService.deleteInterest(map)) {
-            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }

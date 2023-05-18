@@ -11,8 +11,13 @@ import java.util.Map;
 
 @Service
 public class PictureServiceImpl implements PictureService {
+
+    private final PictureDAO pictureDAO;
+
     @Autowired
-    private PictureDAO pictureDAO;
+    public PictureServiceImpl(PictureDAO pictureDAO) {
+        this.pictureDAO = pictureDAO;
+    }
 
     @Override
     public List<Picture> getPictureList(Map<String, String> map) throws Exception {
@@ -31,7 +36,7 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
-    public void registPicture(Map<String, String> map) throws Exception {
+    public void registerPicture(Map<String, String> map) throws Exception {
         pictureDAO.registPicture(map);
     }
 
@@ -47,7 +52,7 @@ public class PictureServiceImpl implements PictureService {
         int start = (pgno - 1) * countPerPage;
         String sortKeyword = map.getOrDefault("sortKeyword", "time");
         String id = map.get("id");
-        boolean isPicture = "true".equals(map.getOrDefault("isPicture", null)) ? true : false;
+        boolean isPicture = "true".equals(map.getOrDefault("isPicture", null));
 
         ListParameterDto listParameterDto = new ListParameterDto();
         listParameterDto.setStart(start);

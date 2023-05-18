@@ -3,6 +3,7 @@ package com.back.miru.model.service;
 import com.back.miru.model.dao.UserDAO;
 import com.back.miru.model.dto.Interest;
 import com.back.miru.model.dto.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
     String password;
 
 
+    @Autowired
     private UserServiceImpl(UserDAO userDao) {
         this.userDao = userDao;
     }
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registUser(Map<String, String> map) throws Exception {
+    public void registerUser(Map<String, String> map) throws Exception {
         map.put("salt", randomGenerateString(16));
         userDao.registUser(map);
     }
@@ -102,8 +104,7 @@ public class UserServiceImpl implements UserService {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
         Random random = new Random();
-        String generatedString = random.ints(leftLimit, rightLimit + 1).filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97)).limit(targetStringLength).collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString();
-        return generatedString;
+        return random.ints(leftLimit, rightLimit + 1).filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97)).limit(targetStringLength).collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString();
     }
 
 
@@ -126,12 +127,11 @@ public class UserServiceImpl implements UserService {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject("New message from Miru");
 
-            StringBuilder content = new StringBuilder();
-            content.append("<p>Hello ").append(to.split("@")[0]).append("</p>");
-            content.append("<p>You got a new message from Miru</p>");
-            content.append("<p style=\"padding:12px;border-left:4px solid #d0d0d0;font-style:italic\">").append(newPassword).append("</p>");
-            content.append("<p>Please log in with the password again. Thank you.</p>");
-            message.setContent(content.toString(), "text/html");
+            String content = "<p>Hello " + to.split("@")[0] + "</p>" +
+                    "<p>You got a new message from Miru</p>" +
+                    "<p style=\"padding:12px;border-left:4px solid #d0d0d0;font-style:italic\">" + newPassword + "</p>" +
+                    "<p>Please log in with the password again. Thank you.</p>";
+            message.setContent(content, "text/html");
             Transport.send(message);
         } catch (MessagingException e) {
             throw new RuntimeException(e);

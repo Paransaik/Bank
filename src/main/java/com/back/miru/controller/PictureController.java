@@ -140,7 +140,7 @@ public class PictureController {
         if (jwtService.isUsable(request.getHeader("token"))) {
             logger.info("사용 가능한 토큰!!!");
             try {
-                pictureService.registPicture(map);
+                pictureService.registerPicture(map);
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {

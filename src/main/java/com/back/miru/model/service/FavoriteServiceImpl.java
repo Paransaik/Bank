@@ -1,7 +1,6 @@
 package com.back.miru.model.service;
 
 import com.back.miru.model.dao.FavoriteDAO;
-import com.back.miru.model.dto.FavoritePicture;
 import com.back.miru.model.dto.FavoriteUser;
 import com.back.miru.model.dto.ListParameterDto;
 import com.back.miru.model.dto.Picture;
@@ -13,11 +12,16 @@ import java.util.Map;
 
 @Service
 public class FavoriteServiceImpl implements FavoriteService {
+
+    private final FavoriteDAO favoriteDAO;
+
     @Autowired
-    private FavoriteDAO favoriteDAO;
+    public FavoriteServiceImpl(FavoriteDAO favoriteDAO) {
+        this.favoriteDAO = favoriteDAO;
+    }
 
     @Override
-    public void registFavoriteUser(Map<String, String> map) throws Exception {
+    public void registerFavoriteUser(Map<String, String> map) throws Exception {
         favoriteDAO.registFavoriteUser(map);
     }
 
@@ -33,7 +37,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    public void registFavoritePicture(Map<String, String> map) throws Exception {
+    public void registerFavoritePicture(Map<String, String> map) throws Exception {
         favoriteDAO.registFavoritePicture(map);
     }
 
