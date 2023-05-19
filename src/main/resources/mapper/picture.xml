@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.back.miru.model.dao.PictureDAO">
+
+    <!-- 사진 등록 -->
+    <insert id="registPicture" parameterType="Map">
+        INSERT INTO picture (pictureIdx, filepath, tag, publicFlag, isPicture, id)
+        VALUES (#{pictureIdx}, #{filepath}, #{tag}, #{publicFlag}, #{isPicture}, #{id})
+    </insert>
+
+    <!-- 사진 삭제 -->
+    <delete id="deletePicture" parameterType="Map">
+        DELETE
+        FROM picture
+        WHERE pictureIdx = #{pictureIdx}
+    </delete>
+
+    <!-- 사진 디테일 -->
+    <select id="getPictureDetail" parameterType="String" resultType="Map">
+        SELECT p.pictureIdx, p.filepath, p.tag, IFNULL(cnt, 0) as favoriteCnt, p.updateTime
+        FROM picture p
+                 LEFT OUTER JOIN
+             (SELECT pictureIdx, count(*) as cnt
+              FROM favoritepicture
+              GROUP BY pictureIdx) fp
+             ON p.pictureIdx = fp.pictureIdx
+        WHERE p.pictureIdx = #{pictureIdx}
+    </select>
+
+    <!-- 전체 사진 불러오기 -->
+    <select id="selectAllPictures" parameterType="ListParameterDto" resultType="Map">
+        SELECT p.pictureIdx, p.filepath, p.tag,
+        IFNULL((SELECT COUNT(*)
+        FROM favoritePicture
+        GROUP BY pictureIdx
+        HAVING pictureIdx = p.pictureIdx), 0) likeCnt,
+        IF(p.pictureIdx
+        IN (SELECT pictureIdx
+        FROM favoritePicture
+        WHERE id = #{id}), 1, 0) likeFlag, p.updateTime
+        FROM picture p LEFT OUTER JOIN favoritePicture fp
+        ON p.pictureIdx = fp.pictureIdx
+        WHERE p.publicFlag = 1 OR p.id = #{id}
+        GROUP BY p.pictureIdx
+        ORDER BY
+        <choose>
+            <when test="sortKeyword == 'like'">
+                likeCnt DESC, p.updateTime DESC, pictureIdx DESC
+            </when>
+            <otherwise>
+                p.updateTime DESC, likeCnt DESC, pictureIdx DESC
+            </otherwise>
+        </choose>
+        LIMIT #{start}, #{currentPerPage}
+    </select>
+
+    <!-- 사진 검색하기 -->
+    <select id="searchPictureList" parameterType="ListParameterDto" resultType="Map">
+        SELECT p.pictureIdx, p.filepath, p.tag,
+        IFNULL((SELECT COUNT(*)
+        FROM favoritePicture
+        GROUP BY pictureIdx
+        HAVING pictureIdx = p.pictureIdx), 0) likeCnt,
+        IF(p.pictureIdx
+        IN (SELECT pictureIdx
+        FROM favoritePicture
+        WHERE id = #{id}), 1, 0) likeFlag, p.updateTime
+        FROM picture p LEFT OUTER JOIN favoritePicture fp
+        ON p.pictureIdx = fp.pictureIdx
+        WHERE (p.publicFlag = 1 OR p.id = #{id})
+        AND p.isPicture = #{isPicture}
+        AND p.tag LIKE CONCAT('%', #{keyword}, '%')
+        GROUP BY p.pictureIdx
+        ORDER BY
+        <choose>
+            <when test="sortKeyword == 'like'">
+                likeCnt DESC, p.updateTime DESC, pictureIdx DESC
+            </when>
+            <otherwise>
+                p.updateTime DESC, likeCnt DESC, pictureIdx DESC
+            </otherwise>
+        </choose>
+        LIMIT #{start}, #{currentPerPage}
+    </select>
+</mapper>
