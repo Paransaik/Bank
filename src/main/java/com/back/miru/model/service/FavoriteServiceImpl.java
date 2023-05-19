@@ -15,6 +15,15 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     private final FavoriteDAO favoriteDAO;
 
+    @Override
+    public FavoriteUser c() {
+        return FavoriteUser
+                .builder()
+                .pictureIdx(1)
+                .pictureOrder(1)
+                .build();
+    }
+
     @Autowired
     public FavoriteServiceImpl(FavoriteDAO favoriteDAO) {
         this.favoriteDAO = favoriteDAO;

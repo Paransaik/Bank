@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface FavoriteService {
+
+    FavoriteUser c();
     void registerFavoriteUser(Map<String, String> map) throws Exception;
 
     void deleteFavoriteUser(String followId, Map<String, String> map) throws Exception;
