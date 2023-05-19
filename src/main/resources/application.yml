@@ -33,4 +33,3 @@ logging:
         miru:
           controller: debug
     root: info
-

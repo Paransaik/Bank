@@ -22,7 +22,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public void registerFavoriteUser(Map<String, String> map) throws Exception {
-        favoriteDAO.registFavoriteUser(map);
+        favoriteDAO.registerFavoriteUser(map);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public void registerFavoritePicture(Map<String, String> map) throws Exception {
-        favoriteDAO.registFavoritePicture(map);
+        favoriteDAO.registerFavoritePicture(map);
     }
 
     @Override
