@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserService {
-	int checkId(String id) throws Exception;
-
 	void registerUser(Map<String, String> map) throws Exception;
 
 	void updateUser(Map<String, String> map) throws Exception;
@@ -28,5 +26,4 @@ public interface UserService {
 	boolean resisterInterest(Map<String, String> map) throws Exception;
 
 	boolean deleteInterest(Map<String, String> map) throws Exception;
-
 }

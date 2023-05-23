@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface PictureService {
-
     List<Picture> getPictureList(Map<String, String> map) throws Exception;
 
     void registerPicture(Map<String, String> map) throws Exception;

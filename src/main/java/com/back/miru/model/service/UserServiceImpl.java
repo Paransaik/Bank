@@ -29,11 +29,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int checkId(String id) throws Exception {
-        return userDao.checkId(id);
-    }
-
-    @Override
     public void registerUser(Map<String, String> map) throws Exception {
         map.put("salt", randomGenerateString(16));
         userDao.registerUser(map);

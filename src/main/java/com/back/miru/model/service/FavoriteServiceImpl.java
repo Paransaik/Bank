@@ -15,15 +15,6 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     private final FavoriteDAO favoriteDAO;
 
-    @Override
-    public FavoriteUser c() {
-        return FavoriteUser
-                .builder()
-                .pictureIdx(1)
-                .pictureOrder(1)
-                .build();
-    }
-
     @Autowired
     public FavoriteServiceImpl(FavoriteDAO favoriteDAO) {
         this.favoriteDAO = favoriteDAO;
@@ -58,15 +49,13 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public List<Picture> infoFavoritePicture(String id, Map<String, String> map) throws Exception {
-        int pgno = Integer.parseInt(map.get("page"));
         int countPerPage = 6; // 한 페이지당 보여줄 개수
-        int start = (pgno - 1) * countPerPage;
-
-        ListParameterDto listParameterDto = new ListParameterDto();
-        listParameterDto.setStart(start);
-        listParameterDto.setCurrentPerPage(countPerPage);
-        listParameterDto.setId(id);
-        return favoriteDAO.infoFavoritePicture(listParameterDto);
+        return favoriteDAO.infoFavoritePicture(ListParameterDto
+                .builder()
+                .start((Integer.parseInt(map.get("page")) - 1) * countPerPage)
+                .currentPerPage(countPerPage)
+                .id(id)
+                .build());
     }
 
     @Override

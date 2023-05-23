@@ -34,11 +34,6 @@ public class FavoriteController {
         this.favoriteService = favoriteService;
     }
 
-    @GetMapping("c")
-    private FavoriteUser c(){
-        return favoriteService.c();
-    }
-
     @PostMapping("/user")
     public ResponseEntity<Map<String, Object>> registerFavoriteUser(@RequestBody Map<String, String> map, HttpServletRequest request) {
         System.out.println("resistFavorite controller 시작");

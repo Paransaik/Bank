@@ -35,17 +35,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("check")
-    public String check(){
-        return "check";
-    }
-
-    @GetMapping("/check/{id}")
-    public int checkId(@PathVariable String id) throws Exception {
-        System.out.println("checkId controller 시작");
-        return userService.checkId(id);
-    }
-
     @PostMapping
     public ResponseEntity<String> registerUser(@RequestBody Map<String, String> map) throws Exception {
         System.out.println("resister controller 시작");
