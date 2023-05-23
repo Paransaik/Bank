@@ -5,7 +5,7 @@ import lombok.*;
 
 @Getter
 @ToString
-public class Interest {
+public class InterestDTO {
 	private int no;
 	private String dongCode;
 	private String id;

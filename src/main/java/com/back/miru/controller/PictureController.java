@@ -1,7 +1,7 @@
 package com.back.miru.controller;
 
 import com.back.miru.ai.TransformPainting;
-import com.back.miru.model.dto.Picture;
+import com.back.miru.model.dto.PictureDTO;
 import com.back.miru.model.service.JwtService;
 import com.back.miru.model.service.PictureService;
 import org.slf4j.Logger;
@@ -69,8 +69,8 @@ public class PictureController {
         HttpStatus status;
         logger.info("사용 가능한 토큰!!!");
         try {
-            List<Picture> pictureList = pictureService.getPictureList(map);
-            resultMap.put("pictureList", pictureList);
+            List<PictureDTO> pictureDTOList = pictureService.getPictureList(map);
+            resultMap.put("pictureList", pictureDTOList);
             resultMap.put("message", SUCCESS);
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
@@ -89,8 +89,8 @@ public class PictureController {
         HttpStatus status;
         logger.info("사용 가능한 토큰!!!");
         try {
-            List<Picture> pictureList = pictureService.searchPictureList(keyword, map);
-            resultMap.put("pictureList", pictureList);
+            List<PictureDTO> pictureDTOList = pictureService.searchPictureList(keyword, map);
+            resultMap.put("pictureList", pictureDTOList);
             resultMap.put("message", SUCCESS);
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
@@ -111,11 +111,11 @@ public class PictureController {
         if (jwtService.isUsable(request.getHeader("token"))) {
             logger.info("사용 가능한 토큰!!!");
             try {
-                Picture picture = pictureService.getPictureDetail(pictureIdx);
-                Timestamp timestamp = picture.getUpdateTime();
+                PictureDTO pictureDTO = pictureService.getPictureDetail(pictureIdx);
+                Timestamp timestamp = pictureDTO.getUpdateTime();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 System.out.println(sdf.format(timestamp));
-                resultMap.put("picture", picture);
+                resultMap.put("picture", pictureDTO);
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {

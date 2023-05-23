@@ -36,7 +36,7 @@
 
     <select id="infoFavoritePicture" parameterType="ListParameterDto" resultType="Map">
         SELECT pictureIdx, filepath, tag, updateTime
-        FROM picture
+        FROM pictureDTO
         WHERE pictureIdx
             IN(SELECT pictureIdx
                FROM favoritePicture

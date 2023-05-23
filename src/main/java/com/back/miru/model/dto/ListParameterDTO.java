@@ -7,7 +7,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class ListParameterDto {
+public class ListParameterDTO {
     private int start;
     private int currentPerPage;
     private String keyword;

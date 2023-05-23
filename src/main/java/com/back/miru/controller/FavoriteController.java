@@ -1,7 +1,7 @@
 package com.back.miru.controller;
 
-import com.back.miru.model.dto.FavoriteUser;
-import com.back.miru.model.dto.Picture;
+import com.back.miru.model.dto.FavoriteUserDTO;
+import com.back.miru.model.dto.PictureDTO;
 import com.back.miru.model.service.FavoriteService;
 import com.back.miru.model.service.JwtService;
 import org.slf4j.Logger;
@@ -90,9 +90,9 @@ public class FavoriteController {
         if (jwtService.isUsable(request.getHeader("token"))) {
             logger.info("사용 가능한 토큰!!!");
             try {
-                List<FavoriteUser> favoriteUserInfo = favoriteService.infoFavoriteUser(id);
-                System.out.println(favoriteUserInfo);
-                resultMap.put("favoriteUserInfo", favoriteUserInfo);
+                List<FavoriteUserDTO> favoriteUserDTOInfo = favoriteService.infoFavoriteUser(id);
+                System.out.println(favoriteUserDTOInfo);
+                resultMap.put("favoriteUserInfo", favoriteUserDTOInfo);
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
@@ -166,8 +166,8 @@ public class FavoriteController {
         if (jwtService.isUsable(request.getHeader("token"))) {
             logger.info("사용 가능한 토큰!!!");
             try {
-                List<Picture> favoritePictureInfo = favoriteService.infoFavoritePicture(id, map);
-                resultMap.put("favoritePictureInfo", favoritePictureInfo);
+                List<PictureDTO> favoritePictureInfoDTO = favoriteService.infoFavoritePicture(id, map);
+                resultMap.put("favoritePictureInfo", favoritePictureInfoDTO);
                 int totalPictureCnt = favoriteService.getTotalPictureCnt(id);
 
                 resultMap.put("totalPictureCnt", totalPictureCnt);

@@ -1,8 +1,8 @@
 package com.back.miru.model.service;
 
 import com.back.miru.model.dao.PictureDAO;
-import com.back.miru.model.dto.ListParameterDto;
-import com.back.miru.model.dto.Picture;
+import com.back.miru.model.dto.ListParameterDTO;
+import com.back.miru.model.dto.PictureDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +20,9 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
-    public List<Picture> getPictureList(Map<String, String> map) throws Exception {
+    public List<PictureDTO> getPictureList(Map<String, String> map) throws Exception {
         int countPerPage = 20; // 한 페이지당 보여줄 개수
-        return pictureDAO.selectAllPictures(ListParameterDto
+        return pictureDAO.selectAllPictures(ListParameterDTO
                 .builder()
                 .start((Integer.parseInt(map.get("page")) - 1) * countPerPage)
                 .currentPerPage(countPerPage)
@@ -42,9 +42,9 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
-    public List<Picture> searchPictureList(String keyword, Map<String, String> map) {
+    public List<PictureDTO> searchPictureList(String keyword, Map<String, String> map) {
         int countPerPage = 20; // 한 페이지당 보여줄 개수
-        return pictureDAO.searchPictureList(ListParameterDto
+        return pictureDAO.searchPictureList(ListParameterDTO
                 .builder()
                 .start((Integer.parseInt(map.get("page")) - 1) * countPerPage)
                 .currentPerPage(countPerPage)
@@ -56,7 +56,7 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
-    public Picture getPictureDetail(String pictureIdx) throws Exception {
+    public PictureDTO getPictureDetail(String pictureIdx) throws Exception {
         return pictureDAO.getPictureDetail(pictureIdx);
     }
 }

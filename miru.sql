@@ -27,8 +27,8 @@ CREATE TABLE `favoritePicture` (
   `pictureIdx` int NOT NULL,
   PRIMARY KEY (`id`,`pictureIdx`),
   KEY `pictureIdx` (`pictureIdx`),
-  CONSTRAINT `favoritepicture_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `favoritepicture_ibfk_2` FOREIGN KEY (`pictureIdx`) REFERENCES `picture` (`pictureIdx`) ON DELETE CASCADE
+  CONSTRAINT `favoritepicture_ibfk_1` FOREIGN KEY (`id`) REFERENCES `userDTO` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `favoritepicture_ibfk_2` FOREIGN KEY (`pictureIdx`) REFERENCES `pictureDTO` (`pictureIdx`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,8 +53,8 @@ CREATE TABLE `favoriteUser` (
   `followId` varchar(30) NOT NULL,
   PRIMARY KEY (`id`,`followId`),
   KEY `followId` (`followId`),
-  CONSTRAINT `favoriteuser_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `favoriteuser_ibfk_2` FOREIGN KEY (`followId`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  CONSTRAINT `favoriteuser_ibfk_1` FOREIGN KEY (`id`) REFERENCES `userDTO` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `favoriteuser_ibfk_2` FOREIGN KEY (`followId`) REFERENCES `userDTO` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -68,13 +68,13 @@ LOCK TABLES `favoriteUser` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `picture`
+-- Table structure for table `pictureDTO`
 --
 
-DROP TABLE IF EXISTS `picture`;
+DROP TABLE IF EXISTS `pictureDTO`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `picture` (
+CREATE TABLE `pictureDTO` (
   `pictureIdx` int NOT NULL AUTO_INCREMENT,
   `filepath` varchar(150) DEFAULT NULL,
   `tag` varchar(300) DEFAULT NULL,
@@ -84,27 +84,27 @@ CREATE TABLE `picture` (
   `updateTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`pictureIdx`),
   KEY `id` (`id`),
-  CONSTRAINT `picture_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  CONSTRAINT `picture_ibfk_1` FOREIGN KEY (`id`) REFERENCES `userDTO` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=683 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `picture`
+-- Dumping data for table `pictureDTO`
 --
 
-LOCK TABLES `picture` WRITE;
-/*!40000 ALTER TABLE `picture` DISABLE KEYS */;
-/*!40000 ALTER TABLE `picture` ENABLE KEYS */;
+LOCK TABLES `pictureDTO` WRITE;
+/*!40000 ALTER TABLE `pictureDTO` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pictureDTO` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `user`
+-- Table structure for table `userDTO`
 --
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `userDTO`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user` (
+CREATE TABLE `userDTO` (
   `id` varchar(30) NOT NULL,
   `password` char(64) NOT NULL,
   `email` varchar(50) NOT NULL,
@@ -115,13 +115,13 @@ CREATE TABLE `user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `userDTO`
 --
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('miru','b407398d2b6008ef4a2b411157c4aa20e1737f5c60aa39ae06ef62ed0a0b6712','miru@miru.com',1,'LMkDgkfoeW7kB5c0');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+LOCK TABLES `userDTO` WRITE;
+/*!40000 ALTER TABLE `userDTO` DISABLE KEYS */;
+INSERT INTO `userDTO` VALUES ('miru','b407398d2b6008ef4a2b411157c4aa20e1737f5c60aa39ae06ef62ed0a0b6712','miru@miru.com',1,'LMkDgkfoeW7kB5c0');
+/*!40000 ALTER TABLE `userDTO` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

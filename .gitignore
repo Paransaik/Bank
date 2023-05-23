@@ -1,4 +1,4 @@
-# Ai picture transfer by ty
+# Ai pictureDTO transfer by ty
 *.DS_Store
 *.swp
 *.pyc
@@ -63,7 +63,7 @@ build/
 /.gradle/8.0/checksums/md5-checksums.bin
 /out/production/classes/com/back/miru/MiruApplication.class
 /out/production/classes/com/back/miru/model/dto/Picture.class
-/out/production/resources/mapper/picture.xml
+/out/production/resources/mapper/pictureDTO.xml
 /out/production/classes/com/back/miru/controller/PictureController.class
 /out/production/classes/com/back/miru/model/dao/PictureDAO.class
 /out/production/classes/com/back/miru/model/service/PictureService.class
@@ -74,7 +74,7 @@ build/
 /out/production/classes/com/back/miru/ai/TransformPainting.class
 /out/production/classes/com/back/miru/exception/UnauthorizedException.class
 /out/production/classes/com/back/miru/model/dto/User.class
-/out/production/resources/mapper/user.xml
+/out/production/resources/mapper/userDTO.xml
 /out/production/classes/com/back/miru/controller/UserController.class
 /out/production/classes/com/back/miru/model/dao/UserDAO.class
 /out/production/classes/com/back/miru/model/service/UserService.class

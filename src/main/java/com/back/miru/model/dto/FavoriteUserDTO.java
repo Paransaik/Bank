@@ -4,7 +4,7 @@ import lombok.*;
 
 @Getter
 @ToString
-public class FavoriteUser {
+public class FavoriteUserDTO {
     private String id;
     private int pictureIdx;
     private int pictureOrder;

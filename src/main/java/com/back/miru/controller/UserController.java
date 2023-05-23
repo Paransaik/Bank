@@ -1,7 +1,7 @@
 package com.back.miru.controller;
 
-import com.back.miru.model.dto.Interest;
-import com.back.miru.model.dto.User;
+import com.back.miru.model.dto.InterestDTO;
+import com.back.miru.model.dto.UserDTO;
 import com.back.miru.model.service.JwtService;
 import com.back.miru.model.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -40,10 +40,10 @@ public class UserController {
         System.out.println("resister controller 시작");
         userService.registerUser(map);
         System.out.println("map : " + map);
-        User loginUser = userService.loginUser(map.get("id"), map.get("password"));
+        UserDTO loginUserDTO = userService.loginUser(map.get("id"), map.get("password"));
         String token = "";
-        if (loginUser != null) {
-            token = jwtService.create("id", loginUser.getId(), "token");
+        if (loginUserDTO != null) {
+            token = jwtService.create("id", loginUserDTO.getId(), "token");
             return new ResponseEntity<>(token, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(token, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -101,14 +101,14 @@ public class UserController {
     @ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> loginUser(
-            @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) User user) {
+            @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) UserDTO userDTO) {
         System.out.println("login contoller 호출");
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
         try {
-            User loginUser = userService.loginUser(user.getId(), user.getPassword());
-            if (loginUser != null) {
-                String token = jwtService.create("id", loginUser.getId(), "token");// key, data, subject
+            UserDTO loginUserDTO = userService.loginUser(userDTO.getId(), userDTO.getPassword());
+            if (loginUserDTO != null) {
+                String token = jwtService.create("id", loginUserDTO.getId(), "token");// key, data, subject
                 logger.debug("로그인 토큰정보 : {}", token);
                 resultMap.put("token", token);
                 resultMap.put("message", SUCCESS);
@@ -143,8 +143,8 @@ public class UserController {
         if (jwtService.isUsable(request.getHeader("token"))) {
             logger.info("사용 가능한 토큰!!!");
             try {
-                User user = userService.infoUser(id);
-                resultMap.put("userInfo", user);
+                UserDTO userDTO = userService.infoUser(id);
+                resultMap.put("userInfo", userDTO);
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {
@@ -161,7 +161,7 @@ public class UserController {
     }
 
     @GetMapping("/interest/{id}")
-    public ResponseEntity<List<Interest>> getInterestList(@PathVariable String id) throws Exception {
+    public ResponseEntity<List<InterestDTO>> getInterestList(@PathVariable String id) throws Exception {
         return new ResponseEntity<>(userService.getInterestList(id), HttpStatus.OK);
     }
 

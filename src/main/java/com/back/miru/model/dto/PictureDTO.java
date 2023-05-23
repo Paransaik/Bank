@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 @Getter
 @ToString
-public class Picture {
+public class PictureDTO {
     private int pictureIdx;
     private String filepath;
     private String tag;

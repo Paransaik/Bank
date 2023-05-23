@@ -1,8 +1,8 @@
 package com.back.miru.model.service;
 
 import com.back.miru.model.dao.UserDAO;
-import com.back.miru.model.dto.Interest;
-import com.back.miru.model.dto.User;
+import com.back.miru.model.dto.InterestDTO;
+import com.back.miru.model.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -46,12 +46,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User infoUser(String id) throws Exception {
+    public UserDTO infoUser(String id) throws Exception {
         return userDao.infoUser(id);
     }
 
     @Override
-    public User loginUser(String id, String password) throws Exception {
+    public UserDTO loginUser(String id, String password) throws Exception {
         return userDao.loginUser(id, password);
     }
 
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Interest> getInterestList(String id) throws Exception {
+    public List<InterestDTO> getInterestList(String id) throws Exception {
         return userDao.getInterestList(id);
     }
 

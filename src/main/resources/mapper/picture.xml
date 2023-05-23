@@ -6,21 +6,21 @@
 
     <!-- 사진 등록 -->
     <insert id="registPicture" parameterType="Map">
-        INSERT INTO picture (pictureIdx, filepath, tag, publicFlag, isPicture, id)
+        INSERT INTO pictureDTO (pictureIdx, filepath, tag, publicFlag, isPicture, id)
         VALUES (#{pictureIdx}, #{filepath}, #{tag}, #{publicFlag}, #{isPicture}, #{id})
     </insert>
 
     <!-- 사진 삭제 -->
     <delete id="deletePicture" parameterType="Map">
         DELETE
-        FROM picture
+        FROM pictureDTO
         WHERE pictureIdx = #{pictureIdx}
     </delete>
 
     <!-- 사진 디테일 -->
     <select id="getPictureDetail" parameterType="String" resultType="Map">
         SELECT p.pictureIdx, p.filepath, p.tag, IFNULL(cnt, 0) as favoriteCnt, p.updateTime
-        FROM picture p
+        FROM pictureDTO p
                  LEFT OUTER JOIN
              (SELECT pictureIdx, count(*) as cnt
               FROM favoritepicture
@@ -40,7 +40,7 @@
         IN (SELECT pictureIdx
         FROM favoritePicture
         WHERE id = #{id}), 1, 0) likeFlag, p.updateTime
-        FROM picture p LEFT OUTER JOIN favoritePicture fp
+        FROM pictureDTO p LEFT OUTER JOIN favoritePicture fp
         ON p.pictureIdx = fp.pictureIdx
         WHERE p.publicFlag = 1 OR p.id = #{id}
         GROUP BY p.pictureIdx
@@ -67,7 +67,7 @@
         IN (SELECT pictureIdx
         FROM favoritePicture
         WHERE id = #{id}), 1, 0) likeFlag, p.updateTime
-        FROM picture p LEFT OUTER JOIN favoritePicture fp
+        FROM pictureDTO p LEFT OUTER JOIN favoritePicture fp
         ON p.pictureIdx = fp.pictureIdx
         WHERE (p.publicFlag = 1 OR p.id = #{id})
         AND p.isPicture = #{isPicture}
