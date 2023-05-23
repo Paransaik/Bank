@@ -10,8 +10,6 @@ import java.util.Map;
 
 @Mapper
 public interface UserDAO {
-	int checkId(String id) throws SQLException;
-
 	void registerUser(Map<String, String> map) throws SQLException;
 
 	void updateUser(Map<String, String> map) throws SQLException;

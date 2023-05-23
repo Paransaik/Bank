@@ -3,7 +3,7 @@ package com.back.miru.controller;
 import com.back.miru.model.dto.FavoriteUserDTO;
 import com.back.miru.model.dto.PictureDTO;
 import com.back.miru.model.service.FavoriteService;
-import com.back.miru.model.service.JwtService;
+import com.back.miru.interceptor.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,6 @@
 package com.back.miru.interceptor;
 
 import com.back.miru.exception.UnauthorizedException;
-import com.back.miru.model.service.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,12 @@ public class JwtInterceptor implements HandlerInterceptor{
 	
 	private static final String HEADER_AUTH = "auth-token";
 
+	private final JwtService jwtService;
+
 	@Autowired
-	private JwtService jwtService;
+	public JwtInterceptor(JwtService jwtService) {
+		this.jwtService = jwtService;
+	}
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

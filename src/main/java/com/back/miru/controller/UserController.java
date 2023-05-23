@@ -2,7 +2,7 @@ package com.back.miru.controller;
 
 import com.back.miru.model.dto.InterestDTO;
 import com.back.miru.model.dto.UserDTO;
-import com.back.miru.model.service.JwtService;
+import com.back.miru.interceptor.JwtService;
 import com.back.miru.model.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

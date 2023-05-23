@@ -2,7 +2,7 @@ package com.back.miru.controller;
 
 import com.back.miru.ai.TransformPainting;
 import com.back.miru.model.dto.PictureDTO;
-import com.back.miru.model.service.JwtService;
+import com.back.miru.interceptor.JwtService;
 import com.back.miru.model.service.PictureService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
