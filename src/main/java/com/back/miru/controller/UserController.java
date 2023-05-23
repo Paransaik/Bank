@@ -37,9 +37,8 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<String> registerUser(@RequestBody Map<String, String> map) throws Exception {
-        System.out.println("resister controller 시작");
+        logger.debug("Map:: {}", map.toString());
         userService.registerUser(map);
-        System.out.println("map : " + map);
         UserDTO loginUserDTO = userService.loginUser(map.get("id"), map.get("password"));
         String token = "";
         if (loginUserDTO != null) {
@@ -58,19 +57,16 @@ public class UserController {
         System.out.println("update User 호출");
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
-
         try {
             map.put("id", id);
             userService.updateUser(map);
             resultMap.put("userInfo", map);
             resultMap.put("message", SUCCESS);
             status = HttpStatus.ACCEPTED;
-
         } catch (Exception e) {
             logger.error("수정 실패 : {0}", e);
             resultMap.put("message", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
-
         }
         return new ResponseEntity<>(resultMap, status);
     }
@@ -102,21 +98,20 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> loginUser(
             @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) UserDTO userDTO) {
-        System.out.println("login contoller 호출");
+        logger.debug("UserDTO:: " + userDTO.toString());
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
         try {
             UserDTO loginUserDTO = userService.loginUser(userDTO.getId(), userDTO.getPassword());
             if (loginUserDTO != null) {
                 String token = jwtService.create("id", loginUserDTO.getId(), "token");// key, data, subject
-                logger.debug("로그인 토큰정보 : {}", token);
+                logger.debug("로그인 토큰 정보:: {}", token);
                 resultMap.put("token", token);
                 resultMap.put("message", SUCCESS);
-                status = HttpStatus.ACCEPTED;
             } else {
                 resultMap.put("message", FAIL);
-                status = HttpStatus.ACCEPTED;
             }
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("로그인 실패 : {0}", e);
             resultMap.put("message", e.getMessage());

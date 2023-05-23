@@ -20,7 +20,7 @@ public interface FavoriteDAO {
 
 	void deleteFavoritePicture(Map<String, String> map) throws Exception;
 
-	List<PictureDTO> infoFavoritePicture(ListParameterDTO listParameterDto) throws Exception;
+	List<PictureDTO> infoFavoritePicture(ListParameterDTO listParameterDTO) throws Exception;
 
 	int getTotalPictureCnt(String id) throws Exception;
 }

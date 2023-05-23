@@ -50,9 +50,9 @@ public class SwaggerConfiguration {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title(title)
-				.description("<h3>SSAFY API Reference for Developers</h3>Swagger를 이용한 HappyHouse API<br><img src=\"/assets/img/ssafy_logo.png\" width=\"150\">") 
-				.contact(new Contact("SSAFY", "https://edu.ssafy.com", "ssafy@ssafy.com"))
-				.license("SSAFY License")
+				.description("<h3>Paransaik API Reference for Developers</h3>Swagger를 이용한 Miru API")
+				.contact(new Contact("Paransaik", "https://blog.naver.com/set_star", "taeyeong.jeong419@gmail.com"))
+				.license("Paransaik License")
 				.licenseUrl("https://www.ssafy.com/ksp/jsp/swp/etc/swpPrivacy.jsp")
 				.version("1.0").build();
 	}

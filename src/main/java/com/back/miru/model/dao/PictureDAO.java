@@ -13,7 +13,7 @@ public interface PictureDAO {
     // getPictureList
     List<PictureDTO> selectAllPictures(ListParameterDTO listParameterDto) throws Exception;
 
-    void registPicture(Map<String, String> map) throws Exception;
+    void registerPicture(Map<String, String> map) throws Exception;
 
     void deletePicture(String pictureIdx) throws Exception;
 

@@ -11,31 +11,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
-public class JwtInterceptor implements HandlerInterceptor{
-	
-	public static final Logger logger = LoggerFactory.getLogger(JwtInterceptor.class);
-	
-	private static final String HEADER_AUTH = "auth-token";
+public class JwtInterceptor implements HandlerInterceptor {
 
-	private final JwtService jwtService;
+    public static final Logger logger = LoggerFactory.getLogger(JwtInterceptor.class);
 
-	@Autowired
-	public JwtInterceptor(JwtService jwtService) {
-		this.jwtService = jwtService;
-	}
+    private static final String HEADER_AUTH = "auth-token";
 
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		final String token = request.getHeader(HEADER_AUTH);
+    private final JwtService jwtService;
 
-		if(token != null && jwtService.isUsable(token)){
-			logger.info("토큰 사용 가능 : {}", token);
-			return true;
-		}else{
+    @Autowired
+    public JwtInterceptor(JwtService jwtService) {
+        this.jwtService = jwtService;
+    }
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        final String token = request.getHeader(HEADER_AUTH);
+        if (token == null || !jwtService.isUsable(token)) {
 			logger.info("토큰 사용 불가능 : {}", token);
 			throw new UnauthorizedException();
-		}
-
-	}
+        }
+		logger.info("토큰 사용 가능 : {}", token);
+		return true;
+    }
 }

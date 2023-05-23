@@ -33,7 +33,7 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     public void registerPicture(Map<String, String> map) throws Exception {
-        pictureDAO.registPicture(map);
+        pictureDAO.registerPicture(map);
     }
 
     @Override

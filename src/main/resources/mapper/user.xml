@@ -34,7 +34,7 @@
         WHERE id = #{id}
     </select>
 
-    <select id="loginUser" parameterType="Map" resultType="UserDTO">
+    <select id="loginUser" parameterType="map" resultType="UserDTO">
         SELECT *
         FROM user
         WHERE id = #{id}

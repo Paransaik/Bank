@@ -3,26 +3,26 @@ package com.back.miru.model.dao;
 import com.back.miru.model.dto.InterestDTO;
 import com.back.miru.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 @Mapper
 public interface UserDAO {
-	void registerUser(Map<String, String> map) throws SQLException;
+	void registerUser(Map<String, String> map) throws Exception;
 
-	void updateUser(Map<String, String> map) throws SQLException;
+	void updateUser(Map<String, String> map) throws Exception;
 
-	void deleteUser(String id) throws SQLException;
+	void deleteUser(String id) throws Exception;
 
-	UserDTO infoUser(String id) throws SQLException;
+	UserDTO infoUser(String id) throws Exception;
 
-	UserDTO loginUser(String id, String password) throws SQLException;
+	UserDTO loginUser(@Param("id") String id, @Param("password") String password) throws Exception;
 
-	int checkPasswordFind(Map<String, String> map) throws SQLException;
+	int checkPasswordFind(Map<String, String> map) throws Exception;
 
-	void updatePassword(Map<String, String> map) throws SQLException;
+	void updatePassword(Map<String, String> map) throws Exception;
 
 	List<InterestDTO> getInterestList(String id) throws Exception;
 
