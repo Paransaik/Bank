@@ -1,5 +1,6 @@
 package com.back.bank.controller;
 
+import com.back.bank.model.dto.TokenDTO;
 import com.back.bank.model.dto.UserDTO;
 import com.back.bank.interceptor.JwtService;
 import com.back.bank.model.service.UserService;
@@ -20,6 +21,9 @@ import java.util.Map;
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 @RequestMapping("/user")
 public class UserController {
+    // DB에 저장할 Refresh Token
+    static Map<String, String> refreshTokens = new HashMap<>();
+
     public static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
@@ -40,7 +44,7 @@ public class UserController {
         UserDTO loginUserDTO = userService.loginUser(map.get("id"), map.get("password"));
         String token = "";
         if (loginUserDTO != null) {
-            token = jwtService.create("id", loginUserDTO.getId(), "token");
+            token = jwtService.createAccessAndRefresh("id", loginUserDTO.getId(), "token");
             return new ResponseEntity<>(token, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(token, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -95,23 +99,18 @@ public class UserController {
     @ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> loginUser(
-            @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) UserDTO userDTO) {
-        logger.debug("UserDTO:: " + userDTO.toString());
+            @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) UserDTO userDTO) throws Exception {
         Map<String, Object> resultMap = new HashMap<>();
+
+        // 이메일 체크 한번 해야 됨
+        UserDTO loginUserDTO = userService.loginUser(userDTO.getId(), userDTO.getPassword());
         HttpStatus status;
         try {
-            UserDTO loginUserDTO = userService.loginUser(userDTO.getId(), userDTO.getPassword());
-            if (loginUserDTO != null) {
-                String token = jwtService.create("id", loginUserDTO.getId(), "token");// key, data, subject
-                logger.debug("로그인 토큰 정보:: {}", token);
-                resultMap.put("token", token);
-                resultMap.put("message", SUCCESS);
-            } else {
-                resultMap.put("message", FAIL);
-            }
+            TokenDTO tokenDTO = jwtService.createAccessAndRefresh(loginUserDTO.getEmail());
+            resultMap.put("token", tokenDTO);
+            resultMap.put("message", SUCCESS);
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
-            logger.error("로그인 실패 : {0}", e);
             resultMap.put("message", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
