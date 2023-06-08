@@ -1,6 +1,6 @@
 package com.back.bank.interceptor;
 
-import com.back.bank.exception.UnauthorizedException;
+import com.back.bank.model.service.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,6 @@ public class JwtInterceptor implements HandlerInterceptor {
         final String token = request.getHeader(HEADER_AUTH);
         if (token == null || !jwtService.isUsable(token)) {
 			logger.info("토큰 사용 불가능 : {}", token);
-			throw new UnauthorizedException();
         }
 		logger.info("토큰 사용 가능 : {}", token);
 		return true;
