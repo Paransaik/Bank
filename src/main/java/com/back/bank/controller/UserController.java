@@ -1,5 +1,6 @@
 package com.back.bank.controller;
 
+import com.back.bank.model.dto.Token;
 import com.back.bank.model.dto.TokenDTO;
 import com.back.bank.model.dto.UserDTO;
 import com.back.bank.model.service.JwtService;
@@ -39,28 +40,30 @@ public class UserController {
 
     /**
      * 유저 등록
-     * @author  tyJeong
-     * @param   map: UserDTO
-     * @return  TokenDTO
      *
+     * @param map: UserDTO
+     * @return TokenDTO
+     * <p>
      * TODO: 2023-06-08 사용자 로그인 시 이메일 중복 검사
+     * @author tyJeong
      */
     @PostMapping
-    public ResponseEntity<TokenDTO> registerUser(@RequestBody Map<String, String> map) throws Exception {
+    public ResponseEntity<String> registerUser(
+            @RequestBody Map<String, String> map) throws Exception {
         logger.debug("Map:: {}", map.toString());
         userService.registerUser(map);
         UserDTO loginUserDTO = userService.loginUser(map.get("id"), map.get("password"));
-        TokenDTO token;
         if (loginUserDTO == null) return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        token = jwtService.createAccessAndRefresh(loginUserDTO.getEmail());
+        String token = jwtService.createToken(loginUserDTO.getEmail(), Token.A);
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
     /**
-     * 유저 등록
-     * @author  tyJeong
-     * @param   map: UserDTO
-     * @return  tokenDTO: access token, refresh token
+     * 유저 업데이트
+     *
+     * @param map: UserDTO
+     * @return tokenDTO: access token, refresh token
+     * @author tyJeong
      */
     @ApiOperation(value = "회원정보수정", response = Map.class)
     @PutMapping("/{id}")
@@ -84,10 +87,11 @@ public class UserController {
     }
 
     /**
-     * 유저 등록
-     * @author  tyJeong
-     * @param   id: user id
-     * @return  message
+     * 유저 삭제
+     *
+     * @param id: user id
+     * @return message
+     * @author tyJeong
      */
     @ApiOperation(value = "회원정보삭제", response = Map.class)
     @DeleteMapping("/{id}")
@@ -114,23 +118,32 @@ public class UserController {
     }
 
     /**
-     * 유저 등록
-     * @author  tyJeong
-     * @param   userDTO: user id, user password
-     * @return  tokenDTO: access token, refresh token
+     * 유저 로그인
+     *
+     * @param userDTO: user id, user password
+     * @return tokenDTO: access token, refresh token
+     * @author tyJeong
      */
     @ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> loginUser(
             @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true)
-            UserDTO userDTO) throws Exception {
+            UserDTO userDTO) {
         Map<String, Object> resultMap = new HashMap<>();
-
+        logger.debug(String.valueOf(userDTO));
         // 이메일 체크 한번 해야 됨
-        UserDTO loginUserDTO = userService.loginUser(userDTO.getId(), userDTO.getPassword());
+//        UserDTO loginUserDTO = userService.loginUser(userDTO.getId(), userDTO.getPassword());
         HttpStatus status;
         try {
-            TokenDTO tokenDTO = jwtService.createAccessAndRefresh(loginUserDTO.getEmail());
+            String key = userDTO.getEmail();
+            String accessToken = jwtService.createToken(key, Token.A);
+            String refreshToken = jwtService.createToken(key, Token.R);
+            TokenDTO tokenDTO = TokenDTO
+                    .builder()
+                    .accessToken(accessToken)
+                    .refreshToken(refreshToken)
+                    .key(key)
+                    .build();
             resultMap.put("token", tokenDTO);
             resultMap.put("message", SUCCESS);
             status = HttpStatus.ACCEPTED;
@@ -142,10 +155,11 @@ public class UserController {
     }
 
     /**
-     * 유저 등록
-     * @author  tyJeong
-     * @param   id: user id, email: user email
-     * @return  cnt
+     * 유저 패스워드 찾기
+     *
+     * @param id: user id, email: user email
+     * @return cnt
+     * @author tyJeong
      */
     @GetMapping("/{id}")
     public ResponseEntity<Integer> checkPasswordFind(
@@ -158,24 +172,24 @@ public class UserController {
     }
 
     /**
-     * 유저 등록
-     * @author  tyJeong
-     * @param   id: user id, request
-     * @return  userDTO: user id, user password
+     * 유저 정보 보기
+     *
+     * @param id: user id, request
+     * @return userDTO: user id, user password
+     * @author tyJeong
      */
     @ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
     @GetMapping("/info/{id}")
     public ResponseEntity<Map<String, Object>> getUserInfo(
-            @PathVariable("id") @ApiParam(value = "인증할 회원의 아이디.", required = true)
-            String id,
+            @PathVariable("id") @ApiParam(value = "인증할 회원의 아이디.", required = true) String id,
             HttpServletRequest request) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
         if (jwtService.isUsable(request.getHeader("token"))) {
             logger.info("사용 가능한 토큰!!!");
             try {
-                UserDTO userDTO = userService.infoUser(id);
-                resultMap.put("userInfo", userDTO);
+//                UserDTO userDTO = userService.infoUser(id);
+//                resultMap.put("userInfo", userDTO);
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } catch (Exception e) {

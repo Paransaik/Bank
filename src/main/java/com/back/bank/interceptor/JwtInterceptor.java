@@ -26,11 +26,12 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        System.out.println("ttttttttttttttttttttttttttt");
         final String token = request.getHeader(HEADER_AUTH);
         if (token == null || !jwtService.isUsable(token)) {
-			logger.info("토큰 사용 불가능 : {}", token);
+            logger.info("토큰 사용 불가능 : {}", token);
         }
-		logger.info("토큰 사용 가능 : {}", token);
-		return true;
+        logger.info("토큰 사용 가능 : {}", token);
+        return true;
     }
 }

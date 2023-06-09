@@ -29,7 +29,7 @@ external:
 jwt:
   token:
     secret: dimple
-    expiration: 60 * 60 * 1000
+    expiration: 3600000
 
 logging:
   level:

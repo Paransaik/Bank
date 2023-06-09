@@ -1,5 +1,6 @@
 package com.back.bank.model.service;
 
+import com.back.bank.model.dto.Token;
 import com.back.bank.model.dto.TokenDTO;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ public class JwtService {
     private String secret;
 
     @Value("${jwt.token.expiration}")
-    private long expiration;
+    private Long expiration;
 
     private byte[] key;
 
@@ -29,45 +30,17 @@ public class JwtService {
         this.key = secret.getBytes(StandardCharsets.UTF_8);
     }
 
-    public TokenDTO createAccessAndRefresh(String userEmail) {
+    public String createToken(String userEmail, Token token) {
         Claims claims = Jwts.claims().setSubject(userEmail);
         Date now = new Date();
-
-        String accessToken = Jwts
-                .builder()
-                .setHeaderParam("typ", "JWT")
-                .setHeaderParam("regDate", System.currentTimeMillis())
-                .setClaims(claims) // 정보 저장
-                .setIssuedAt(now) // 토큰 발행 시간
-                .setExpiration(new Date(now.getTime() + expiration)) // 만료 시간
-                .signWith(SignatureAlgorithm.HS256, key)
-                .compact();
-
-        String refreshToken = Jwts
+        logger.debug(String.valueOf(expiration));
+        return Jwts
                 .builder()
                 .setHeaderParam("typ", "JWT")
                 .setHeaderParam("regDate", System.currentTimeMillis())
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + 30L * expiration)) // 만료 시간
-                .signWith(SignatureAlgorithm.HS256, key)
-                .compact();
-
-        return TokenDTO.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .key(userEmail)
-                .build();
-    }
-
-    public String recreateAccessToken(String userEmail) {
-        Claims claims = Jwts.claims().setSubject(userEmail);
-        Date now = new Date();
-
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + expiration))
+                .setExpiration(new Date(now.getTime() + expiration * (token == Token.A ? 1L : 30L)))
                 .signWith(SignatureAlgorithm.HS256, key)
                 .compact();
     }
@@ -104,7 +77,7 @@ public class JwtService {
                     .parser()
                     .setSigningKey(key)
                     .parseClaimsJws(jwt);
-            logger.debug("token {}", token);
+            logger.info("token {}", token);
             return true;
         } catch (Exception e) {
             logger.error(e.getMessage());
