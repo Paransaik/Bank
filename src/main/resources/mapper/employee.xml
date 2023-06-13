@@ -5,8 +5,8 @@
 <mapper namespace="com.back.bank.model.dao.EmployeeDAO">
 
     <insert id="registerEmployee" parameterType="Map">
-        INSERT INTO Employee (emp_no, nm, password, email, birth_dt, enter_dt, retire_dt, dept_cd, team_cd, grade_cd, posit_cd, phone_no, addr)
-        VALUES (#{empNo}, #{nm}, #{password}, #{email}, #{birthDt}, #{enterDt}, #{retireDt}, #{deptCd}, #{teamCd}, #{gradeCd}, #{positCd}, #{phoneNo}, #{addr})
+        INSERT INTO Employee (emp_no, nm, passwd, email, birth_dt, enter_dt, retire_dt, dept_cd, team_cd, grade_cd, posit_cd, phone_no, addr)
+        VALUES (#{empNo}, #{nm}, #{passwd}, #{email}, #{birthDt}, #{enterDt}, #{retireDt}, #{deptCd}, #{teamCd}, #{gradeCd}, #{positCd}, #{phoneNo}, #{addr})
     </insert>
 
     <update id="updateEmployee" parameterType="Map">
@@ -28,11 +28,10 @@
         WHERE   empNo = #{empNo}
     </delete>
 
-    <select id="loginEmployee" parameterType="map">
+    <select id="loginEmployee" resultType="com.back.bank.model.dto.Employee$Entity">>
         SELECT  *
         FROM    Employee
-        WHERE   emp_no = #{empNo}
-          AND   password = #{password}
+        WHERE   emp_no = #{empNo} AND passwd = #{passwd}
     </select>
 
     <select id="checkPasswordFind" parameterType="Map" resultType="Int">

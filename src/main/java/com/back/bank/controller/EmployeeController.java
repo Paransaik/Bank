@@ -48,7 +48,6 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<String> registerEmployee(
             @RequestBody Employee.Entity employee) throws Exception {
-        logger.debug("Map:: {}", employee);
         employeeService.registerEmployee(employee);
         String token = jwtService.createToken(employee.getEmail(), Token.A);
         return new ResponseEntity<>(token, HttpStatus.OK);
@@ -122,35 +121,25 @@ public class EmployeeController {
      */
     @ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> loginEmployee(
+    public Object loginEmployee(
             @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true)
-            Employee.Entity employee) {
-        Map<String, Object> resultMap = new HashMap<>();
-        logger.debug(String.valueOf(employee));
-        // 이메일 체크 한번 해야 됨
-//        EmployeeDTO loginEmployeeDTO = employeeService.loginEmployee(EmployeeDTO.getempNo(), EmployeeDTO.getPassword());
-        HttpStatus status;
-        try {
-            String key = employee.getEmail();
-            String accessToken = jwtService.createToken(key, Token.A);
-            String refreshToken = jwtService.createToken(key, Token.R);
+            Employee.Entity employee) throws Exception {
+        logger.info(String.valueOf(employee));
+        System.out.println();
+        Employee.Entity loggedEmployee = employeeService.loginEmployee(employee.getEmpNo(), employee.getPasswd());
+        if (loggedEmployee == null) return false;
+        String key = employee.getEmail();
+        String accessToken = jwtService.createToken(key, Token.A);
+        String refreshToken = jwtService.createToken(key, Token.R);
 
-            // Refresh Token saved DB
-            refreshTokens.put(key, refreshToken);
-            TokenDTO tokenDTO = TokenDTO
-                    .builder()
-                    .accessToken(accessToken)
-                    .refreshToken(refreshToken)
-                    .key(key)
-                    .build();
-            resultMap.put("token", tokenDTO);
-            resultMap.put("message", SUCCESS);
-            status = HttpStatus.ACCEPTED;
-        } catch (Exception e) {
-            resultMap.put("message", e.getMessage());
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return new ResponseEntity<>(resultMap, status);
+        // Refresh Token saved DB
+        refreshTokens.put(key, refreshToken);
+        return TokenDTO
+                .builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .key(key)
+                .build();
     }
 
     /**
@@ -173,26 +162,14 @@ public class EmployeeController {
     /**
      * 사원 정보 보기
      *
-     * @param empNo: Employee empNo, request
-     * @return EmployeeDTO: Employee empNo, Employee password
+     * @param empNo: Employee.Entity empNo
+     * @return employee: Employee.Entity
      * @author tyJeong
      */
     @ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
     @GetMapping("/info/{empNo}")
-    public ResponseEntity<Map<String, Object>> getEmployeeInfo(
-            @PathVariable("empNo") @ApiParam(value = "인증할 회원의 아이디.", required = true) String empNo) {
-        Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status;
-        try {
-            Employee.Entity employee = employeeService.getEmployee(empNo);
-            resultMap.put("EmployeeInfo", employee);
-            resultMap.put("message", SUCCESS);
-            status = HttpStatus.ACCEPTED;
-        } catch (Exception e) {
-            logger.error("정보 조회 실패 : {0}", e);
-            resultMap.put("message", e.getMessage());
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return new ResponseEntity<>(resultMap, status);
+    public Employee.Entity getEmployeeInfo(
+            @PathVariable("empNo") @ApiParam(value = "인증할 회원의 아이디.", required = true) String empNo) throws Exception {
+        return employeeService.getEmployee(empNo);
     }
 }

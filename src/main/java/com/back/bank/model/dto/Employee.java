@@ -12,7 +12,7 @@ public class Employee {
 	public static class Entity{
 		private String empNo;
 		private String nm;
-		private String password;
+		private String passwd;
 		private String email;
 		private Date birthDt;
 		private Date enterDt;

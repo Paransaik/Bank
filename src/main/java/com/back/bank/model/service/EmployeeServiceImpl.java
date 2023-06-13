@@ -39,8 +39,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee.Entity loginEmployee(String empNo, String password) throws Exception {
-        return employeeDao.loginEmployee(empNo, password);
+    public Employee.Entity loginEmployee(String empNo, String passwd) throws Exception {
+        return employeeDao.loginEmployee(empNo, passwd);
     }
 
     @Override
@@ -66,7 +66,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         map.put("salt", randomGenerateString(16));
         employeeDao.updatePassword(map);
     }
-
 
     public String randomGenerateString(int targetStringLength) {
         int leftLimit = 48; // numeral '0'

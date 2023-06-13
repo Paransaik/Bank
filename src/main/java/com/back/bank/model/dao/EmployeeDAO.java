@@ -14,9 +14,9 @@ public interface EmployeeDAO {
 
 	void deleteEmployee(String id) throws Exception;
 
-	Employee.Entity getEmployee(String id) throws Exception;
+	Employee.Entity getEmployee(String empNo) throws Exception;
 
-	Employee.Entity loginEmployee(@Param("empNo") String empNo, @Param("password") String password) throws Exception;
+	Employee.Entity loginEmployee(@Param("empNo") String empNo, @Param("passwd") String passwd) throws Exception;
 
 	int checkPasswordFind(Map<String, String> map) throws Exception;
 

@@ -33,7 +33,6 @@ public class JwtService {
     public String createToken(String userEmail, Token token) {
         Claims claims = Jwts.claims().setSubject(userEmail);
         Date now = new Date();
-        logger.debug(String.valueOf(expiration));
         return Jwts
                 .builder()
                 .setHeaderParam("typ", "JWT")
