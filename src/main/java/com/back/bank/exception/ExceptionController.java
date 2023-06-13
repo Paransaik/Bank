@@ -65,6 +65,20 @@ public class ExceptionController {
         return new Response("404", "SignatureException");
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Response NullPointerException(Exception e) {
+        e.printStackTrace();
+        return new Response("100", "NullPointerException");
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Response RuntimeException(Exception e) {
+        e.printStackTrace();
+        return new Response("101", "RuntimeException");
+    }
+
     //Response DTO
     @Data
     @AllArgsConstructor
