@@ -28,6 +28,7 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java:8.0.28'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.7'
 
+    implementation "org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16"
     annotationProcessor('org.projectlombok:lombok')
     testAnnotationProcessor('org.projectlombok:lombok')
 }

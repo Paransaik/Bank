@@ -10,9 +10,11 @@ spring:
       max-request-size: 5MB
   datasource:
     password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     username: root
-    url: jdbc:mysql://127.0.0.1:3306/bank
+    #    url: jdbc:mysql://127.0.0.1:3306/bank
+    url: jdbc:log4jdbc:mysql://127.0.0.1:3306/bank
   mvc:
     path match:
       matching-strategy: ANT_PATH_MATCHER
@@ -31,10 +33,23 @@ jwt:
     secret: dimple
     expiration: 3600000
 
+log4jdbc:
+  spylogdelegator:
+    name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+  dump:
+    sql:
+      maxlinelength=0
+
 logging:
   level:
     com:
       back:
-        miru:
-          controller: debug
+        bank:
+          controller: off
+#          controller: debug
+#    javax:
+#      sql:
+#        DataSource: info
+    jdbc:
+      sqlonly: off
     root: info
