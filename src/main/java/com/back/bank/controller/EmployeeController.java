@@ -40,9 +40,8 @@ public class EmployeeController {
     /**
      * 사원 등록
      *
-     * @param map: EmployeeDTO
+     * @param employee: Employee.Entity
      * @return TokenDTO
-     * <p>
      * TODO: 2023-06-08 사용자 로그인 시 이메일 중복 검사
      * @author tyJeong
      */
@@ -51,9 +50,7 @@ public class EmployeeController {
             @RequestBody Employee.Entity employee) throws Exception {
         logger.debug("Map:: {}", employee);
         employeeService.registerEmployee(employee);
-        Employee.Entity loginEmployee = employeeService.loginEmployee(employee.getEmpNo(), employee.getPassword());
-        if (loginEmployee == null) return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        String token = jwtService.createToken(loginEmployee.getEmail(), Token.A);
+        String token = jwtService.createToken(employee.getEmail(), Token.A);
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 

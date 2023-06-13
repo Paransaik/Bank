@@ -16,7 +16,7 @@ public interface EmployeeDAO {
 
 	Employee.Entity getEmployee(String id) throws Exception;
 
-	Employee.Entity loginEmployee(@Param("empno") String empno, @Param("password") String password) throws Exception;
+	Employee.Entity loginEmployee(@Param("empNo") String empNo, @Param("password") String password) throws Exception;
 
 	int checkPasswordFind(Map<String, String> map) throws Exception;
 
