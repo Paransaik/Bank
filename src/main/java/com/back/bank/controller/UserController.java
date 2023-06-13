@@ -138,6 +138,9 @@ public class UserController {
             String key = userDTO.getEmail();
             String accessToken = jwtService.createToken(key, Token.A);
             String refreshToken = jwtService.createToken(key, Token.R);
+
+            // Refresh Token saved DB
+            refreshTokens.put(key, refreshToken);
             TokenDTO tokenDTO = TokenDTO
                     .builder()
                     .accessToken(accessToken)
@@ -181,26 +184,18 @@ public class UserController {
     @ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
     @GetMapping("/info/{id}")
     public ResponseEntity<Map<String, Object>> getUserInfo(
-            @PathVariable("id") @ApiParam(value = "인증할 회원의 아이디.", required = true) String id,
-            HttpServletRequest request) {
+            @PathVariable("id") @ApiParam(value = "인증할 회원의 아이디.", required = true) String id) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
-        if (jwtService.isUsable(request.getHeader("token"))) {
-            logger.info("사용 가능한 토큰!!!");
-            try {
-//                UserDTO userDTO = userService.infoUser(id);
-//                resultMap.put("userInfo", userDTO);
-                resultMap.put("message", SUCCESS);
-                status = HttpStatus.ACCEPTED;
-            } catch (Exception e) {
-                logger.error("정보 조회 실패 : {0}", e);
-                resultMap.put("message", e.getMessage());
-                status = HttpStatus.INTERNAL_SERVER_ERROR;
-            }
-        } else {
-            logger.error("사용 불가능 토큰!!!");
-            resultMap.put("message", FAIL);
+        try {
+//            UserDTO userDTO = userService.infoUser(id);
+//            resultMap.put("userInfo", userDTO);
+            resultMap.put("message", SUCCESS);
             status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("정보 조회 실패 : {0}", e);
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(resultMap, status);
     }

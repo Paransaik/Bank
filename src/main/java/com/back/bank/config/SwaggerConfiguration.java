@@ -23,7 +23,7 @@ public class SwaggerConfiguration {
 //	http://localhost:8080/{your-app-root}/swagger-ui/index.html
 
 	private String version = "V1";
-	private String title = "project Miru API " + version;
+	private String title = "project Bank API " + version;
 	
 	@Bean
 	public Docket api() {
@@ -53,8 +53,8 @@ public class SwaggerConfiguration {
 				.description("<h3>Paransaik API Reference for Developers</h3>Swagger를 이용한 Miru API")
 				.contact(new Contact("Paransaik", "https://blog.naver.com/set_star", "taeyeong.jeong419@gmail.com"))
 				.license("Paransaik License")
-				.licenseUrl("https://www.ssafy.com/ksp/jsp/swp/etc/swpPrivacy.jsp")
 				.version("1.0").build();
+//				.licenseUrl("https://www.ssafy.com/ksp/jsp/swp/etc/swpPrivacy.jsp")
 	}
 
 }
