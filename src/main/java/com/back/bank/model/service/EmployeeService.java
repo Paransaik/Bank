@@ -9,7 +9,7 @@ public interface EmployeeService {
 
     void updateEmployee(Map<String, String> map) throws Exception;
 
-    void deleteEmployee(String id) throws Exception;
+    boolean deleteEmployee(String id) throws Exception;
 
     Employee.Entity getEmployee(String empNo) throws Exception;
 

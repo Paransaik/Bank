@@ -29,8 +29,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteEmployee(String empNo) throws Exception {
-        employeeDao.deleteEmployee(empNo);
+    public boolean deleteEmployee(String empNo) throws Exception {
+        return employeeDao.deleteEmployee(empNo);
     }
 
     @Override

@@ -61,7 +61,7 @@ public class EmployeeController {
      * @return tokenDTO: access token, refresh token
      * @author tyJeong
      */
-    @ApiOperation(value = "회원정보수정", response = Map.class)
+    @ApiOperation(value = "회원 정보 수정", response = Map.class)
     @PutMapping("/{empNo}")
     public ResponseEntity<Map<String, Object>> updateEmployee(
             @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true)
@@ -89,28 +89,12 @@ public class EmployeeController {
      * @return message
      * @author tyJeong
      */
-    @ApiOperation(value = "회원정보삭제", response = Map.class)
+    @ApiOperation(value = "회원 정보 삭제", response = Map.class)
     @DeleteMapping("/{empNo}")
-    public ResponseEntity<Map<String, Object>> deleteEmployee(
+    public boolean deleteEmployee(
             @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true)
-            @PathVariable String empNo) {
-        System.out.println("delete Employee 호출");
-        Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status;
-        System.out.println(empNo);
-        try {
-            employeeService.deleteEmployee(empNo);
-            resultMap.put("message", SUCCESS);
-            status = HttpStatus.ACCEPTED;
-
-        } catch (Exception e) {
-            logger.error("삭제 실패 : {0}", e);
-            resultMap.put("message", e.getMessage());
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-
-        }
-        System.out.println(status);
-        return new ResponseEntity<>(resultMap, status);
+            @PathVariable String empNo) throws Exception {
+        return employeeService.deleteEmployee(empNo);
     }
 
     /**
