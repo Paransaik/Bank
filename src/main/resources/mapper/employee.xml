@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.back.bank.model.dao.EmployeeDAO">
+
+    <insert id="registerEmployee" parameterType="Map">
+        INSERT INTO Employee (emp_no, nm, password, email, birth_dt, enter_dt, retire_dt, dept_cd, team_cd, grade_cd, posit_cd, phone_no, addr)
+        VALUES (#{empNo}, sha2(concat(#{password}, #{salt}), 256), #{email}, #{recommendFlag}, #{salt})
+    </insert>
+
+    <update id="updateEmployee" parameterType="Map">
+        UPDATE  Employee
+        SET     password=sha2(concat(#{password}, #{salt}), 256),
+                <if test="email != null">
+                    email=#{email},
+                </if>
+                <if test="recommendFlag != null">
+                    recommendFlag=#{recommendFlag},
+                </if>
+                salt=#{salt}
+        WHERE   id = #{empNo}
+    </update>
+
+    <delete id="deleteEmployee" parameterType="String">
+        DELETE
+        FROM    Employee
+        WHERE   empNo = #{empNo}
+    </delete>
+
+    <select id="getEmployee" parameterType="String">
+        SELECT  *
+        FROM    Employee
+        WHERE   empNo = #{empNo}
+    </select>
+
+    <select id="loginEmployee" parameterType="map">
+        SELECT  *
+        FROM    Employee
+        WHERE   id = #{empNo}
+          AND   password = sha2(concat(#{password}, (SELECT salt FROM Employee WHERE id = #{empNo})), 256)
+    </select>
+
+    <select id="checkPasswordFind" parameterType="Map" resultType="Int">
+        SELECT  count(id)
+        FROM    Employee
+        WHERE   empNo = #{empNo}
+          AND   email = #{email}
+    </select>
+
+    <update id="updatePassword" parameterType="Map">
+        UPDATE  Employee
+        SET     password=sha2(concat(#{password}, #{salt}), 256), salt=#{salt}
+        WHERE   empNo = #{empNo}
+    </update>
+</mapper>
