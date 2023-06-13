@@ -11,8 +11,10 @@
 
 CREATE TABLE EMPLOYEE
 (
-    empno     varchar(8)  NOT NULL,
+    emp_no     varchar(8)  NOT NULL,
     nm        varchar(20) NOT NULL,
+    password  varchar(100)NOT NULL,
+    email     varchar(30) NOT NULL,
     birth_dt  date,
     enter_dt  date,
     retire_dt date,
@@ -21,7 +23,6 @@ CREATE TABLE EMPLOYEE
     grade_cd  varchar(2),
     posit_cd  varchar(2),
     phone_no  varchar(20),
-    mphone_no varchar(20),
     addr      varchar(100)
 );
 insert into EMPLOYEE
