@@ -7,6 +7,7 @@ import com.back.bank.model.service.EmployeeService;
 import com.back.bank.model.service.JwtService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Authorization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,19 +116,17 @@ public class EmployeeController {
     /**
      * 사원 로그인
      *
-     * @param employee: Employee empNo, Employee password
-     * @return tokenDTO: access token, refresh token
+     * @param employee: Employee.Entity
+     * @return tokenDTO: access token, refresh token, key
      * @author tyJeong
      */
     @ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
     @PostMapping("/login")
-    public Object loginEmployee(
+    public TokenDTO loginEmployee(
             @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true)
             Employee.Entity employee) throws Exception {
-        logger.info(String.valueOf(employee));
-        System.out.println();
         Employee.Entity loggedEmployee = employeeService.loginEmployee(employee.getEmpNo(), employee.getPasswd());
-        if (loggedEmployee == null) return false;
+        if (loggedEmployee == null) throw new NullPointerException();
         String key = employee.getEmail();
         String accessToken = jwtService.createToken(key, Token.A);
         String refreshToken = jwtService.createToken(key, Token.R);
