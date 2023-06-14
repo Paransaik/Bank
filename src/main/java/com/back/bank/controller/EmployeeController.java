@@ -1,12 +1,10 @@
 package com.back.bank.controller;
 
 import com.back.bank.model.dto.Employee;
-import com.back.bank.model.dto.Token;
 import com.back.bank.model.dto.TokenDTO;
 import com.back.bank.model.service.EmployeeService;
 import com.back.bank.model.service.JwtService;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

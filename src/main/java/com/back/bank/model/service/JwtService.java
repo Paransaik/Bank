@@ -1,6 +1,5 @@
 package com.back.bank.model.service;
 
-import com.back.bank.model.dto.Token;
 import com.back.bank.model.dto.TokenDTO;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
