@@ -1,5 +1,6 @@
 package com.back.bank.controller;
 
+import com.back.bank.model.dto.ApiResult;
 import com.back.bank.model.dto.Employee;
 import com.back.bank.model.dto.Token;
 import com.back.bank.model.service.EmployeeService;
@@ -8,8 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -41,10 +40,9 @@ public class EmployeeController {
      * @author tyJeong
      */
     @PostMapping
-    public ResponseEntity<String> registerEmployee(@RequestBody Employee.Entity employee) throws Exception {
+    public ApiResult<?> registerEmployee(@RequestBody Employee.Entity employee) throws Exception {
         employeeService.registerEmployee(employee);
-        String token = jwtService.createToken(employee.getEmail(), Token.Type.A);
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        return ApiResult.succeed(jwtService.createToken(employee.getEmail(), Token.Type.A));
     }
 
     /**
@@ -56,8 +54,8 @@ public class EmployeeController {
      */
     @ApiOperation(value = "회원 정보 수정", response = Map.class)
     @PutMapping("/update")
-    public boolean updateEmployee(@RequestBody Employee.Entity employee) throws Exception {
-        return employeeService.updateEmployee(employee);
+    public ApiResult<?> updateEmployee(@RequestBody Employee.Entity employee) throws Exception {
+        return ApiResult.succeed(employeeService.updateEmployee(employee));
     }
 
     /**
@@ -69,8 +67,8 @@ public class EmployeeController {
      */
     @ApiOperation(value = "회원 정보 삭제", response = Map.class)
     @DeleteMapping("/delete/{empNo}")
-    public boolean deleteEmployee(@PathVariable String empNo) throws Exception {
-        return employeeService.deleteEmployee(empNo);
+    public ApiResult<?> deleteEmployee(@PathVariable String empNo) throws Exception {
+        return ApiResult.succeed(employeeService.deleteEmployee(empNo));
     }
 
     /**
@@ -82,21 +80,21 @@ public class EmployeeController {
      */
     @ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
     @PostMapping("/login")
-    public Token.Dto loginEmployee(Employee.Entity employee) throws Exception {
+    public ApiResult<?> loginEmployee(Employee.Entity employee) throws Exception {
         Employee.Entity loggedEmployee = employeeService.loginEmployee(employee.getEmpNo(), employee.getPasswd());
-        if (loggedEmployee == null) throw new NullPointerException();
+        if (loggedEmployee == null) return ApiResult.failed("없는 사용자입니다.");
         String key = employee.getEmail();
         String accessToken = jwtService.createToken(key, Token.Type.A);
         String refreshToken = jwtService.createToken(key, Token.Type.R);
 
         // Refresh Token saved DB
         refreshTokens.put(key, refreshToken);
-        return Token.Dto
+        return ApiResult.succeed(Token.Dto
                 .builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .key(key)
-                .build();
+                .build());
     }
 
     /**
@@ -108,10 +106,10 @@ public class EmployeeController {
      * TODO: 2023-06-14 수정 및 검증 할 것
      */
     @GetMapping("/{empNo}")
-    public int checkPasswordFind(
+    public ApiResult<?> checkPasswordFind(
             @PathVariable String empNo,
             @RequestParam String email) throws Exception {
-        return employeeService.checkPasswordFind(empNo, email);
+        return ApiResult.succeed(employeeService.checkPasswordFind(empNo, email));
     }
 
     /**
@@ -123,7 +121,7 @@ public class EmployeeController {
      */
     @ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
     @GetMapping("/info/{empNo}")
-    public Employee.Entity getEmployeeInfo(@PathVariable("empNo") String empNo) throws Exception {
-        return employeeService.getEmployee(empNo);
+    public ApiResult<?> getEmployeeInfo(@PathVariable("empNo") String empNo) throws Exception {
+        return ApiResult.succeed(employeeService.getEmployee(empNo));
     }
 }

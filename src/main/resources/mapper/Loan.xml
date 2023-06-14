@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.back.bank.model.dao.EmployeeDAO">
+<mapper namespace="com.back.bank.model.dao.LoanDAO">
 
     <insert id="registerEmployee">
         INSERT INTO Employee (empNo, nm, passwd, email, birthDt, enterDt, retireDt, deptCd, teamCd, gradeCd, positCd, phoneNo, addr)

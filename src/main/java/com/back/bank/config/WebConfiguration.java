@@ -20,7 +20,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor)
                 .order(1)
-                .addPathPatterns("/employee/info")
+                .addPathPatterns("/employee/info/**")
                 .addPathPatterns("/employee/update")
                 .addPathPatterns("/employee/delete")
                 .addPathPatterns("/loan/**")
