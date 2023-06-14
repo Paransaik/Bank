@@ -15,14 +15,14 @@ CREATE TABLE EMPLOYEE
     nm        varchar(20) NOT NULL,
     passwd    varchar(100)NOT NULL,
     email     varchar(30) NOT NULL,
-    birthDt  date,
-    enterDt  date,
-    retireDt date,
-    deptCd   varchar(4),
-    teamCd   varchar(4),
-    gradeCd  varchar(2),
-    positCd  varchar(2),
-    phoneNo  varchar(20),
+    birthDt   date,
+    enterDt   date,
+    retireDt  date,
+    deptCd    varchar(4),
+    teamCd    varchar(4),
+    gradeCd   varchar(2),
+    positCd   varchar(2),
+    phoneNo   varchar(20),
     addr      varchar(100)
 );
 insert into EMPLOYEE
@@ -46,16 +46,16 @@ values ('1010', '정태영', '1997-04-19', '2022-08-22', NULL, '', '1010', '30',
 
 CREATE TABLE LAON
 (
-    empno           varchar(8) NOT NULL,
-    loan_dt         date NOT NULL,
-    loan_amt        int(10) NOT NULL,
-    month_repay_amt int(10),
-    loan_rate       float(5),
-    loan_balance    int(10),
-    repay_from      date,
-    repay_to        date,
-    last_repay_dt   date,
-    frepay_yn       varchar(1) NOT NULL default '' ''
+    empNo         varchar(8) NOT NULL,
+    loanDt        date NOT NULL,
+    loanAmt       int(10) NOT NULL,
+    monthRepayAmt int(10),
+    loanRate      float(5),
+    loanBalance   int(10),
+    repayFrom     date,
+    repayTo       date,
+    lastRepayDt   date,
+    frepayYn      varchar(1) NOT NULL default '' ''
 );
 insert into LAON
 values ('1000', '2022-01-20', '5000000', '400000', '3.00', '5000000', '2022-03-20', '2023-03-20', NULL, 'N');
