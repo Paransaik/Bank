@@ -1,7 +1,7 @@
 package com.back.bank.controller;
 
 import com.back.bank.model.dto.Employee;
-import com.back.bank.model.dto.TokenDTO;
+import com.back.bank.model.dto.Token;
 import com.back.bank.model.service.EmployeeService;
 import com.back.bank.model.service.JwtService;
 import io.swagger.annotations.ApiOperation;
@@ -23,9 +23,6 @@ public class EmployeeController {
     static Map<String, String> refreshTokens = new HashMap<>();
 
     public static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
-    private static final String SUCCESS = "success";
-    private static final String FAIL = "fail";
-
     private final JwtService jwtService;
     private final EmployeeService employeeService;
 
@@ -39,14 +36,14 @@ public class EmployeeController {
      * 사원 등록
      *
      * @param employee: Employee.Entity
-     * @return TokenDTO
+     * @return Token
      * TODO: 2023-06-08 사용자 로그인 시 이메일 중복 검사
      * @author tyJeong
      */
     @PostMapping
     public ResponseEntity<String> registerEmployee(@RequestBody Employee.Entity employee) throws Exception {
         employeeService.registerEmployee(employee);
-        String token = jwtService.createToken(employee.getEmail(), TokenDTO.Type.A);
+        String token = jwtService.createToken(employee.getEmail(), Token.Type.A);
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
@@ -85,16 +82,16 @@ public class EmployeeController {
      */
     @ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
     @PostMapping("/login")
-    public TokenDTO loginEmployee(Employee.Entity employee) throws Exception {
+    public Token.Dto loginEmployee(Employee.Entity employee) throws Exception {
         Employee.Entity loggedEmployee = employeeService.loginEmployee(employee.getEmpNo(), employee.getPasswd());
         if (loggedEmployee == null) throw new NullPointerException();
         String key = employee.getEmail();
-        String accessToken = jwtService.createToken(key, TokenDTO.Type.A);
-        String refreshToken = jwtService.createToken(key, TokenDTO.Type.R);
+        String accessToken = jwtService.createToken(key, Token.Type.A);
+        String refreshToken = jwtService.createToken(key, Token.Type.R);
 
         // Refresh Token saved DB
         refreshTokens.put(key, refreshToken);
-        return TokenDTO
+        return Token.Dto
                 .builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)

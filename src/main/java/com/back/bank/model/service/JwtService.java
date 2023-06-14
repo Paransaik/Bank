@@ -1,6 +1,6 @@
 package com.back.bank.model.service;
 
-import com.back.bank.model.dto.TokenDTO;
+import com.back.bank.model.dto.Token;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public class JwtService {
         this.key = secret.getBytes(StandardCharsets.UTF_8);
     }
 
-    public String createToken(String userEmail, TokenDTO.Type token) {
+    public String createToken(String userEmail, Token.Type token) {
         Claims claims = Jwts.claims().setSubject(userEmail);
         Date now = new Date();
         return Jwts
@@ -38,7 +38,7 @@ public class JwtService {
                 .setHeaderParam("regDate", System.currentTimeMillis())
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + expiration * (token == TokenDTO.Type.A ? 1L : 30L)))
+                .setExpiration(new Date(now.getTime() + expiration * (token == Token.Type.A ? 1L : 30L)))
                 .signWith(SignatureAlgorithm.HS256, key)
                 .compact();
     }

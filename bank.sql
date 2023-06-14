@@ -76,13 +76,13 @@ values ('1007', '2022-01-10', '5000000', '350000', '2.50', '5000000', '2022-05-2
 
 CREATE TABLE REPAY
 (
-    empno               varchar(8) NOT NULL,
-    loan_dt             date NOT NULL,
-    repay_dt            date NOT NULL,
-    before_loan_balance int(10),
-    loan_rate           float(5),
-    month_repay_amt     int(10),
-    repay_rate_amt      int(10),
-    repay_from          date,
-    repay_to            date
+    empNo             varchar(8) NOT NULL,
+    loanDt            date NOT NULL,
+    repayDt           date NOT NULL,
+    beforeLoanBalance int(10),
+    loanRate          float(5),
+    monthRepayAmt     int(10),
+    repayRateAmt      int(10),
+    repayFrom         date,
+    repayTo           date
 );
