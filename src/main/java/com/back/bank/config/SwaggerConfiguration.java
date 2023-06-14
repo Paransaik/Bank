@@ -56,5 +56,4 @@ public class SwaggerConfiguration {
 				.version("1.0").build();
 //				.licenseUrl("https://www.ssafy.com/ksp/jsp/swp/etc/swpPrivacy.jsp")
 	}
-
 }

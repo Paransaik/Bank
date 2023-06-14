@@ -30,7 +30,7 @@ public class JwtService {
         this.key = secret.getBytes(StandardCharsets.UTF_8);
     }
 
-    public String createToken(String userEmail, Token token) {
+    public String createToken(String userEmail, TokenDTO.Type token) {
         Claims claims = Jwts.claims().setSubject(userEmail);
         Date now = new Date();
         return Jwts
@@ -39,7 +39,7 @@ public class JwtService {
                 .setHeaderParam("regDate", System.currentTimeMillis())
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + expiration * (token == Token.A ? 1L : 30L)))
+                .setExpiration(new Date(now.getTime() + expiration * (token == TokenDTO.Type.A ? 1L : 30L)))
                 .signWith(SignatureAlgorithm.HS256, key)
                 .compact();
     }

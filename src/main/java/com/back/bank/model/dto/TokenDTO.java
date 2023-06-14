@@ -11,4 +11,8 @@ public class TokenDTO {
     String accessToken;
     String refreshToken;
     String key;
+
+    public enum Type {
+        R, A;
+    };
 }

@@ -46,10 +46,9 @@ public class EmployeeController {
      * @author tyJeong
      */
     @PostMapping
-    public ResponseEntity<String> registerEmployee(
-            @RequestBody Employee.Entity employee) throws Exception {
+    public ResponseEntity<String> registerEmployee(@RequestBody Employee.Entity employee) throws Exception {
         employeeService.registerEmployee(employee);
-        String token = jwtService.createToken(employee.getEmail(), Token.A);
+        String token = jwtService.createToken(employee.getEmail(), TokenDTO.Type.A);
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
@@ -57,13 +56,12 @@ public class EmployeeController {
      * 사원 업데이트
      *
      * @param employee: Employee.Entity
-     * @return tokenDTO: access token, refresh token
+     * @return boolean
      * @author tyJeong
      */
     @ApiOperation(value = "회원 정보 수정", response = Map.class)
     @PutMapping("/update")
-    public boolean updateEmployee(
-            @RequestBody Employee.Entity employee) throws Exception {
+    public boolean updateEmployee(@RequestBody Employee.Entity employee) throws Exception {
         return employeeService.updateEmployee(employee);
     }
 
@@ -71,14 +69,12 @@ public class EmployeeController {
      * 사원 삭제
      *
      * @param empNo: Employee empNo
-     * @return message
+     * @return boolean
      * @author tyJeong
      */
     @ApiOperation(value = "회원 정보 삭제", response = Map.class)
     @DeleteMapping("/delete/{empNo}")
-    public boolean deleteEmployee(
-            @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true)
-            @PathVariable String empNo) throws Exception {
+    public boolean deleteEmployee(@PathVariable String empNo) throws Exception {
         return employeeService.deleteEmployee(empNo);
     }
 
@@ -91,14 +87,12 @@ public class EmployeeController {
      */
     @ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
     @PostMapping("/login")
-    public TokenDTO loginEmployee(
-            @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true)
-            Employee.Entity employee) throws Exception {
+    public TokenDTO loginEmployee(Employee.Entity employee) throws Exception {
         Employee.Entity loggedEmployee = employeeService.loginEmployee(employee.getEmpNo(), employee.getPasswd());
         if (loggedEmployee == null) throw new NullPointerException();
         String key = employee.getEmail();
-        String accessToken = jwtService.createToken(key, Token.A);
-        String refreshToken = jwtService.createToken(key, Token.R);
+        String accessToken = jwtService.createToken(key, TokenDTO.Type.A);
+        String refreshToken = jwtService.createToken(key, TokenDTO.Type.R);
 
         // Refresh Token saved DB
         refreshTokens.put(key, refreshToken);
@@ -116,6 +110,7 @@ public class EmployeeController {
      * @param empNo: Employee empNo, email: Employee email
      * @return cnt
      * @author tyJeong
+     * TODO: 2023-06-14 수정 및 검증 할 것
      */
     @GetMapping("/{empNo}")
     public int checkPasswordFind(
@@ -133,8 +128,7 @@ public class EmployeeController {
      */
     @ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
     @GetMapping("/info/{empNo}")
-    public Employee.Entity getEmployeeInfo(
-            @PathVariable("empNo") @ApiParam(value = "인증할 회원의 아이디.", required = true) String empNo) throws Exception {
+    public Employee.Entity getEmployeeInfo(@PathVariable("empNo") String empNo) throws Exception {
         return employeeService.getEmployee(empNo);
     }
 }
