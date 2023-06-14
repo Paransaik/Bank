@@ -3,7 +3,6 @@ package com.back.bank.model.service;
 import com.back.bank.model.dao.EmployeeDAO;
 import com.back.bank.model.dto.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,9 +22,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updateEmployee(Map<String, String> map) throws Exception {
-        map.put("salt", randomGenerateString(16));
-        employeeDao.updateEmployee(map);
+    public boolean updateEmployee(Employee.Entity employee) throws Exception {
+        return employeeDao.updateEmployee(employee);
     }
 
     @Override

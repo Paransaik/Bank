@@ -7,7 +7,6 @@ import com.back.bank.model.service.EmployeeService;
 import com.back.bank.model.service.JwtService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.Authorization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,29 +56,15 @@ public class EmployeeController {
     /**
      * 사원 업데이트
      *
-     * @param map: EmployeeDTO
+     * @param employee: Employee.Entity
      * @return tokenDTO: access token, refresh token
      * @author tyJeong
      */
     @ApiOperation(value = "회원 정보 수정", response = Map.class)
-    @PutMapping("/{empNo}")
-    public ResponseEntity<Map<String, Object>> updateEmployee(
-            @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true)
-            @PathVariable String empNo,
-            @RequestBody Map<String, String> map) {
-        Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status;
-        try {
-            map.put("empNo", empNo);
-            employeeService.updateEmployee(map);
-            resultMap.put("EmployeeInfo", map);
-            resultMap.put("message", SUCCESS);
-            status = HttpStatus.ACCEPTED;
-        } catch (Exception e) {
-            resultMap.put("message", e.getMessage());
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return new ResponseEntity<>(resultMap, status);
+    @PutMapping("/update")
+    public boolean updateEmployee(
+            @RequestBody Employee.Entity employee) throws Exception {
+        return employeeService.updateEmployee(employee);
     }
 
     /**
@@ -90,7 +75,7 @@ public class EmployeeController {
      * @author tyJeong
      */
     @ApiOperation(value = "회원 정보 삭제", response = Map.class)
-    @DeleteMapping("/{empNo}")
+    @DeleteMapping("/delete/{empNo}")
     public boolean deleteEmployee(
             @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true)
             @PathVariable String empNo) throws Exception {
@@ -133,13 +118,10 @@ public class EmployeeController {
      * @author tyJeong
      */
     @GetMapping("/{empNo}")
-    public ResponseEntity<Integer> checkPasswordFind(
+    public int checkPasswordFind(
             @PathVariable String empNo,
             @RequestParam String email) throws Exception {
-        int cnt;
-        System.out.println("checkPasswordFind 실행");
-        cnt = employeeService.checkPasswordFind(empNo, email);
-        return new ResponseEntity<>(cnt, HttpStatus.OK);
+        return employeeService.checkPasswordFind(empNo, email);
     }
 
     /**

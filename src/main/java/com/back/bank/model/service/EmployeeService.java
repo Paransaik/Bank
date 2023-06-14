@@ -2,12 +2,10 @@ package com.back.bank.model.service;
 
 import com.back.bank.model.dto.Employee;
 
-import java.util.Map;
-
 public interface EmployeeService {
     void registerEmployee(Employee.Entity employee) throws Exception;
 
-    void updateEmployee(Map<String, String> map) throws Exception;
+    boolean updateEmployee(Employee.Entity employee) throws Exception;
 
     boolean deleteEmployee(String id) throws Exception;
 

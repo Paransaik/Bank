@@ -10,7 +10,7 @@ import java.util.Map;
 public interface EmployeeDAO {
 	void registerEmployee(Employee.Entity employee) throws Exception;
 
-	void updateEmployee(Map<String, String> map) throws Exception;
+	boolean updateEmployee(Employee.Entity map) throws Exception;
 
 	boolean deleteEmployee(String id) throws Exception;
 

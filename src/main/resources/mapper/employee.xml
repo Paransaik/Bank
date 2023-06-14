@@ -4,22 +4,26 @@
 
 <mapper namespace="com.back.bank.model.dao.EmployeeDAO">
 
-    <insert id="registerEmployee" parameterType="Map">
+    <insert id="registerEmployee">
         INSERT INTO Employee (empNo, nm, passwd, email, birthDt, enterDt, retireDt, deptCd, teamCd, gradeCd, positCd, phoneNo, addr)
                 VALUES (#{empNo}, #{nm}, #{passwd}, #{email}, #{birthDt}, #{enterDt}, #{retireDt}, #{deptCd}, #{teamCd}, #{gradeCd}, #{positCd}, #{phoneNo}, #{addr})
     </insert>
 
-    <update id="updateEmployee" parameterType="Map">
+    <update id="updateEmployee">
         UPDATE  Employee
-        SET     password=sha2(concat(#{password}, #{salt}), 256),
-                <if test="email != null">
-                    email=#{email},
-                </if>
-                <if test="recommendFlag != null">
-                    recommendFlag=#{recommendFlag},
-                </if>
-                salt=#{salt}
-        WHERE   id = #{empNo}
+        SET     nm      = #{nm},
+                passwd  = #{passwd},
+                email   = #{email},
+                birthDt = #{birthDt},
+                enterDt = #{enterDt},
+                retireDt= #{retireDt},
+                deptCd  = #{deptCd},
+                teamCd  = #{teamCd},
+                gradeCd = #{gradeCd},
+                positCd = #{positCd},
+                phoneNo = #{phoneNo},
+                addr    = #{addr}
+        WHERE   empNo   = #{empNo}
     </update>
 
     <delete id="deleteEmployee" parameterType="String">
@@ -31,7 +35,8 @@
     <select id="loginEmployee" resultType="com.back.bank.model.dto.Employee$Entity">
         SELECT  *
         FROM    Employee
-        WHERE   empNo = #{empNo} AND passwd = #{passwd}
+        WHERE   empNo = #{empNo}
+          AND   passwd = #{passwd}
     </select>
 
     <select id="checkPasswordFind" parameterType="Map" resultType="Int">
