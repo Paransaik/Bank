@@ -5,12 +5,15 @@ import com.back.bank.model.dto.Employee;
 import com.back.bank.model.dto.Token;
 import com.back.bank.model.service.EmployeeService;
 import com.back.bank.model.service.JwtService;
+import io.jsonwebtoken.Claims;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,16 +77,16 @@ public class EmployeeController {
     /**
      * 사원 로그인
      *
-     * @param employee: Employee.Entity
+     * @param map: Employee.Entity
      * @return tokenDTO: access token, refresh token, key
      * @author tyJeong
      */
     @ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
     @PostMapping("/login")
-    public ApiResult<?> loginEmployee(Employee.Entity employee) throws Exception {
-        Employee.Entity loggedEmployee = employeeService.loginEmployee(employee.getEmpNo(), employee.getPasswd());
+    public ApiResult<?> loginEmployee(@RequestBody Map<String, String> map) throws Exception {
+        Employee.Entity loggedEmployee = employeeService.loginEmployee(map.get("empNo"), map.get("passwd"));
         if (loggedEmployee == null) return ApiResult.failed("없는 사용자입니다.");
-        String key = employee.getEmail();
+        String key = map.get("email");
         String accessToken = jwtService.createToken(key, Token.Type.A);
         String refreshToken = jwtService.createToken(key, Token.Type.R);
 
@@ -94,6 +97,43 @@ public class EmployeeController {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .key(key)
+                .build());
+    }
+
+    /**
+     * Recreate Refrsh Token
+     *
+     * @param
+     * @return tokenDTO: access token, refresh token, key
+     * @author tyJeong
+     */
+    @PostMapping("/getToken")
+    public ApiResult<?> reCreateToken(@RequestBody Map<String, String> map) {
+        String refreshToken = map.get("refreshToken");
+        Claims claimsFromToken = jwtService.getClaimsFromToken(refreshToken);
+        String userEmail = claimsFromToken.getSubject();
+
+        String oddRefreshToken = refreshTokens.get(userEmail);
+
+        // Refresh Token 만료 여부 확인
+        if (claimsFromToken.getExpiration().before(new Date())){
+            String accessToken = map.get("accessToken");
+
+        }
+        // Refresh Token 변조 여부 확인
+        else if (!refreshToken.equals(oddRefreshToken)) {
+            // 다시 로그인 할 것
+            return ApiResult.failed("변조된 RefreshToken입니다.");
+        }
+        map.remove(refreshToken);
+        String newAccessToken = jwtService.createToken(userEmail, Token.Type.A);
+        String newRefreshToken = jwtService.createToken(userEmail, Token.Type.R);
+
+        return ApiResult.succeed(Token.Dto
+                .builder()
+                .accessToken(newAccessToken)
+                .refreshToken(newRefreshToken)
+                .key(userEmail)
                 .build());
     }
 
