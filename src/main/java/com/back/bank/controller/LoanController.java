@@ -1,8 +1,7 @@
 package com.back.bank.controller;
 
 import com.back.bank.model.dto.ApiResult;
-import com.back.bank.model.service.EmployeeService;
-import com.back.bank.model.service.JwtService;
+import com.back.bank.model.dto.Loan;
 import com.back.bank.model.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,16 +20,19 @@ public class LoanController {
 
     /**
      * 대출 신청 API
-     * */
+     */
     @PostMapping("/apply")
-    public void applyLoan(){
+    public ApiResult<?> applyLoan(@PathVariable("loanId") String loanId) {
+        return ApiResult.succeed(loanService.applyLoan(loanId));
     }
 
     /**
      * 심사 및 승인 API
-     * */
-    @PostMapping("{loanId}/review")
-    public void reviewLoan(){
+     */
+    @PostMapping("/review/{loanId}/{agreeYn}")
+    public ApiResult<?> reviewLoan(@PathVariable("loanId") String loanId,
+                                   @PathVariable("agreeYn") Loan.Type agreeYn) {
+        return ApiResult.succeed(loanService.reviewLoan(loanId, agreeYn == Loan.Type.AGREE ? 1 : 2));
     }
 
     /**
@@ -43,8 +45,8 @@ public class LoanController {
 
     /**
      * 대출 이력 조회 API
-     * */
+     */
     @GetMapping("/history/{userId}")
-    public void getLoanHistory(){
+    public void getLoanHistory() {
     }
 }

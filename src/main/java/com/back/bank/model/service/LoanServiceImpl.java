@@ -15,13 +15,13 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public void applyLoan() {
-
+    public boolean applyLoan(String loanId) {
+        return true;
     }
 
     @Override
-    public void reviewLoan() {
-
+    public boolean reviewLoan(String loanId, int agreeYN) {
+        return loanDAO.reviewLoan(loanId, agreeYN);
     }
 
     @Override

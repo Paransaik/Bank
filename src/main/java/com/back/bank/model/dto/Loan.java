@@ -19,5 +19,11 @@ public class Loan {
         private Date repayTo;
         private Date lastRepayDt;
         private boolean frepayYn;
+        private boolean agreeYn;
+    }
+
+    public enum Type {
+        AGREE,
+        REJECT
     }
 }

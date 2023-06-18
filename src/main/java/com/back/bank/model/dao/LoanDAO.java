@@ -10,4 +10,6 @@ import java.util.Map;
 @Mapper
 public interface LoanDAO {
     Loan.Entity getLoanStatus(String loanId);
+
+    boolean reviewLoan(String loanId, int agreeYN);
 }

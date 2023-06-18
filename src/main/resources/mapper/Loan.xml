@@ -46,15 +46,15 @@
           AND   email = #{email}
     </select>
 
-    <update id="updatePassword" parameterType="Map">
-        UPDATE  Employee
-        SET     password=sha2(concat(#{password}, #{salt}), 256), salt=#{salt}
-        WHERE   emp_no = #{empNo}
+    <update id="reviewLoan">
+        UPDATE  Loan
+        SET     agreeYn = #{agreeYn}
+        WHERE   loanId = #{loanId}
     </update>
 
-    <select id="getLoanStatus" parameterType="String" resultType="com.back.bank.model.dto.Laon$Entity">
+    <select id="getLoanStatus" parameterType="String" resultType="com.back.bank.model.dto.Loan$Entity">
         SELECT  *
         FROM    Loan
-        WHERE   loneId = #{loneId}
+        WHERE   loanId = #{loanId}
     </select>
 </mapper>
