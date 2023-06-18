@@ -14,6 +14,7 @@ public class ErrorCode {
     }
 
     @Getter
+    public
     enum Type {
         /***
          * UnsupportedJwtException : jwt가 예상하는 형식과 다른 형식이거나 구성
@@ -47,7 +48,7 @@ public class ErrorCode {
     }
 
     @Getter
-    static class ErrorException extends Exception {
+    static public class ErrorException extends Exception {
         private final ErrorCode.Type error;
 
         public ErrorException(ErrorCode.Type e) {
