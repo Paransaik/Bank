@@ -1,6 +1,7 @@
 package com.back.bank.controller;
 
 import com.back.bank.model.dto.ApiResult;
+import com.back.bank.model.dto.Employee;
 import com.back.bank.model.dto.Loan;
 import com.back.bank.model.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class LoanController {
      * 대출 신청 API
      */
     @PostMapping("/apply")
-    public ApiResult<?> applyLoan(@PathVariable("loanId") String loanId) {
-        return ApiResult.succeed(loanService.applyLoan(loanId));
+    public ApiResult<?> applyLoan(@RequestBody Loan.Entity loan) {
+        return ApiResult.succeed(loanService.applyLoan(loan));
     }
 
     /**

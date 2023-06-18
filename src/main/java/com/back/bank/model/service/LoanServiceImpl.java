@@ -15,8 +15,8 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public boolean applyLoan(String loanId) {
-        return true;
+    public boolean applyLoan(Loan.Entity loan) {
+        return loanDAO.applyLoan(loan);
     }
 
     @Override

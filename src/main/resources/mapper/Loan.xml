@@ -4,9 +4,9 @@
 
 <mapper namespace="com.back.bank.model.dao.LoanDAO">
 
-    <insert id="registerEmployee">
-        INSERT INTO Employee (empNo, nm, passwd, email, birthDt, enterDt, retireDt, deptCd, teamCd, gradeCd, positCd, phoneNo, addr)
-                VALUES (#{empNo}, #{nm}, #{passwd}, #{email}, #{birthDt}, #{enterDt}, #{retireDt}, #{deptCd}, #{teamCd}, #{gradeCd}, #{positCd}, #{phoneNo}, #{addr})
+    <insert id="applyLoan">
+        INSERT INTO Loan (empNo, loanDt, loanAmt, monthRepayAmt, loanRate, loanBalance, repayFrom, repayTo, lastRepayDt, frepayYn, agreeYn)
+                VALUES (#{empNo}, #{loanDt}, #{loanAmt}, #{monthRepayAmt}, #{loanRate}, #{loanBalance}, #{repayFrom}, #{repayTo}, #{lastRepayDt}, #{frepayYn}, #{agreeYn})
     </insert>
 
     <update id="updateEmployee">

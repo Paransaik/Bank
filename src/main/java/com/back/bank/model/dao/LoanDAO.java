@@ -9,7 +9,9 @@ import java.util.Map;
 
 @Mapper
 public interface LoanDAO {
+    boolean applyLoan(Loan.Entity loan);
     Loan.Entity getLoanStatus(String loanId);
 
     boolean reviewLoan(String loanId, int agreeYN);
+
 }
