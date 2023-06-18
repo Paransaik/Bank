@@ -52,9 +52,9 @@
         WHERE   emp_no = #{empNo}
     </update>
 
-    <select id="getEmployee" parameterType="String" resultType="com.back.bank.model.dto.Employee$Entity">
+    <select id="getLoanStatus" parameterType="String" resultType="com.back.bank.model.dto.Laon$Entity">
         SELECT  *
-        FROM    Employee
-        WHERE   empNo = #{empNo}
+        FROM    Loan
+        WHERE   loneId = #{loneId}
     </select>
 </mapper>
