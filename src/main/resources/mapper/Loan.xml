@@ -57,4 +57,11 @@
         FROM    Loan
         WHERE   loanId = #{loanId}
     </select>
+
+    <select id="getLoanHistory" parameterType="String" resultType="List">
+        SELECT  *
+        FROM    Loan
+        WHERE   empNo = #{empNo}
+    </select>
+
 </mapper>

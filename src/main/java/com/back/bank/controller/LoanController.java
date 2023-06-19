@@ -7,6 +7,8 @@ import com.back.bank.model.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 @RequestMapping("/loan")
@@ -47,7 +49,8 @@ public class LoanController {
     /**
      * 대출 이력 조회 API
      */
-    @GetMapping("/history/{userId}")
-    public void getLoanHistory() {
+    @GetMapping("/history/{empNo}")
+    public ApiResult<?> getLoanHistory(@PathVariable("empNo") String empNo) {
+        return ApiResult.succeed(loanService.getLoanHistory(empNo));
     }
 }

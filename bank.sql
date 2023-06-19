@@ -55,7 +55,7 @@ CREATE TABLE LAON
     repayFrom     date,
     repayTo       date,
     lastRepayDt   date,
-    frepayYn      varchar(1) NOT NULL default '' '',
+    repayYn      varchar(1) NOT NULL default '' '',
     agreeYn      varchar(1) NOT NULL default '' ''
 );
 insert into LAON

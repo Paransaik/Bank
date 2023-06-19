@@ -5,6 +5,8 @@ import com.back.bank.model.dto.Loan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LoanServiceImpl implements LoanService {
     private final LoanDAO loanDAO;
@@ -30,7 +32,7 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public void getLoanHistory() {
-
+    public List<Loan.Entity> getLoanHistory(String empNo) {
+        return loanDAO.getLoanHistory(empNo);
     }
 }
