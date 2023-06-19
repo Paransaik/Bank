@@ -5,7 +5,6 @@ import lombok.ToString;
 
 import java.util.Date;
 
-
 public class Employee {
 	@Getter
 	@ToString

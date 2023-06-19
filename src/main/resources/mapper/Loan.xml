@@ -32,7 +32,7 @@
         WHERE   empNo = #{empNo}
     </delete>
 
-    <select id="loginEmployee" resultType="com.back.bank.model.dto.Employee$Entity">
+    <select id="loginEmployee" resultType="com.back.bank.model.dto.Loan$Entity">
         SELECT  *
         FROM    Employee
         WHERE   empNo = #{empNo}
@@ -58,7 +58,7 @@
         WHERE   loanId = #{loanId}
     </select>
 
-    <select id="getLoanHistory" parameterType="String" resultType="List">
+    <select id="getLoanHistory" parameterType="String" resultType="hashmap">
         SELECT  *
         FROM    Loan
         WHERE   empNo = #{empNo}

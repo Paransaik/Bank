@@ -86,8 +86,9 @@ public class EmployeeController {
     @PostMapping("/login")
     public ApiResult<?> loginEmployee(@RequestBody Map<String, String> map) throws Exception {
         Employee.Entity loggedEmployee = employeeService.loginEmployee(map.get("empNo"), map.get("passwd"));
-        if (loggedEmployee == null) throw new NullPointerException();
-//        if (loggedEmployee == null) throw new ErrorCode.ErrorException(ErrorCode.Type.UNAUTHORIZED);
+        System.out.println(loggedEmployee);
+//        if (loggedEmployee == null) throw new NullPointerException();
+        if (loggedEmployee == null) throw new ErrorCode.ErrorException(ErrorCode.Type.UNAUTHORIZED);
         String key = map.get("email");
         String accessToken = jwtService.createToken(key, Token.Type.A);
         String refreshToken = jwtService.createToken(key, Token.Type.R);
