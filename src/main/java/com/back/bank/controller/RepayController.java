@@ -22,9 +22,9 @@ public class RepayController {
 
     /**
      * 상환 API
-     * */
+     */
     @PostMapping("/apply")
-    public ApiResult<?> repayLoan(@RequestBody Repay.Entity repay){
+    public ApiResult<?> repayLoan(@RequestBody Repay.Entity repay) {
         return ApiResult.succeed(repayService.repayLoan(repay));
     }
 
@@ -32,23 +32,23 @@ public class RepayController {
      * 특정 대출에 대한 상환 정보 조회 API
      */
     @GetMapping("/{loadId}")
-    public void getRepayInfoByLoanId(){
-
+    public ApiResult<?> getRepayInfoByLoanId(@PathVariable("loanId") String loanId) {
+        return ApiResult.succeed(repayService.getRepayInfoByLoanId(loanId));
     }
 
     /**
      * 모든 대출에 대한 상환 정보 조회 API
      */
-    @GetMapping("/")
-    public void getAllRepay(){
-
+    @GetMapping("/history/{empNo}")
+    public ApiResult<?> getRepayHistory(@PathVariable("empNo") String empNo) {
+        return ApiResult.succeed(repayService.getRepayHistory(empNo));
     }
 
     /**
      * 상환 정보 수정 API
      */
     @PutMapping()
-    public void updateRepay(){
+    public void updateRepay() {
 
     }
 
@@ -56,7 +56,7 @@ public class RepayController {
      * 상환 정보 삭제 API
      */
     @DeleteMapping
-    public void deleteRepay(){
+    public void deleteRepay() {
 
     }
 }

@@ -2,10 +2,12 @@ package com.back.bank.model.service;
 
 import com.back.bank.model.dto.Repay;
 
+import java.util.List;
+
 public interface RepayService {
     boolean repayLoan(Repay.Entity repay);
-    void getRepayInfoByLoanId();
-    void getAllRepay();
+    Repay.Entity getRepayInfoByLoanId(String loanId);
+    List<Repay.Entity> getRepayHistory(String empNo);
     void updateRepay();
     void deleteRepay();
 }

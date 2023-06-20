@@ -1,9 +1,13 @@
 package com.back.bank.model.service;
 
 import com.back.bank.model.dao.RepayDAO;
+import com.back.bank.model.dto.ApiResult;
 import com.back.bank.model.dto.Repay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 @Service
 public class RepayServiceImpl implements RepayService {
@@ -20,13 +24,13 @@ public class RepayServiceImpl implements RepayService {
     }
 
     @Override
-    public void getRepayInfoByLoanId() {
-
+    public Repay.Entity getRepayInfoByLoanId(String loanId) {
+        return repayDAO.getRepayInfoByLoanId(loanId);
     }
 
     @Override
-    public void getAllRepay() {
-
+    public List<Repay.Entity> getRepayHistory(String empNo) {
+        return repayDAO.getRepayHistory(empNo);
     }
 
     @Override
