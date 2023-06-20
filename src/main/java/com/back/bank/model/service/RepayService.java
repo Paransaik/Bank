@@ -1,12 +1,9 @@
 package com.back.bank.model.service;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import com.back.bank.model.dto.Repay;
 
 public interface RepayService {
-    public void repayLoan();
+    boolean repayLoan(Repay.Entity repay);
     void getRepayInfoByLoanId();
     void getAllRepay();
     void updateRepay();

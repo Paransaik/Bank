@@ -1,5 +1,11 @@
 package com.back.bank.controller;
 
+import com.back.bank.model.dao.RepayDAO;
+import com.back.bank.model.dto.ApiResult;
+import com.back.bank.model.dto.Loan;
+import com.back.bank.model.dto.Repay;
+import com.back.bank.model.service.RepayService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -7,11 +13,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/repay")
 public class RepayController {
 
+    private final RepayService repayService;
+
+    @Autowired
+    public RepayController(RepayService repayService) {
+        this.repayService = repayService;
+    }
+
     /**
      * 상환 API
      * */
-    @PostMapping("/{loanId}")
-    public void repayLoan(){
+    @PostMapping("/apply")
+    public ApiResult<?> repayLoan(@RequestBody Repay.Entity repay){
+        return ApiResult.succeed(repayService.repayLoan(repay));
     }
 
     /**

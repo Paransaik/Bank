@@ -1,6 +1,7 @@
 package com.back.bank.model.service;
 
 import com.back.bank.model.dao.RepayDAO;
+import com.back.bank.model.dto.Repay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,8 @@ public class RepayServiceImpl implements RepayService {
     }
 
     @Override
-    public void repayLoan() {
-
+    public boolean repayLoan(Repay.Entity repay) {
+        return repayDAO.repayLoan(repay);
     }
 
     @Override

@@ -1,13 +1,10 @@
 package com.back.bank.controller;
 
 import com.back.bank.model.dto.ApiResult;
-import com.back.bank.model.dto.Employee;
 import com.back.bank.model.dto.Loan;
 import com.back.bank.model.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
@@ -42,7 +39,7 @@ public class LoanController {
      * 대출 상태 조회 API
      */
     @GetMapping("/info/{loanId}")
-    public ApiResult<?> getLoanStatus(@PathVariable("loanId") String loanId) throws Exception {
+    public ApiResult<?> getLoanStatus(@PathVariable("loanId") String loanId) {
         return ApiResult.succeed(loanService.getLoanStatus(loanId));
     }
 

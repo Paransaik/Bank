@@ -6,7 +6,7 @@
 
     <insert id="registerEmployee">
         INSERT INTO Employee (empNo, nm, passwd, email, birthDt, enterDt, retireDt, deptCd, teamCd, gradeCd, positCd, phoneNo, addr)
-                VALUES (#{empNo}, #{nm}, #{passwd}, #{email}, #{birthDt}, #{enterDt}, #{retireDt}, #{deptCd}, #{teamCd}, #{gradeCd}, #{positCd}, #{phoneNo}, #{addr})
+        VALUES (#{empNo}, #{nm}, #{passwd}, #{email}, #{birthDt}, #{enterDt}, #{retireDt}, #{deptCd}, #{teamCd}, #{gradeCd}, #{positCd}, #{phoneNo}, #{addr})
     </insert>
 
     <update id="updateEmployee">

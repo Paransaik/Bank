@@ -7,7 +7,6 @@ import com.back.bank.model.dto.Token;
 import com.back.bank.model.service.EmployeeService;
 import com.back.bank.model.service.JwtService;
 import io.jsonwebtoken.Claims;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
