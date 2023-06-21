@@ -29,10 +29,11 @@ public class LoanController {
     /**
      * 심사 및 승인 API
      */
-    @PostMapping("/review/{loanId}/{agreeYn}")
-    public ApiResult<?> reviewLoan(@PathVariable("loanId") String loanId,
-                                   @PathVariable("agreeYn") Loan.Type agreeYn) {
-        return ApiResult.succeed(loanService.reviewLoan(loanId, agreeYn == Loan.Type.AGREE ? 1 : 2));
+    @PostMapping("/review")
+    public ApiResult<?> reviewLoan(@RequestBody Loan.Review reviewRoan) {
+        return ApiResult.succeed(loanService.reviewLoan(reviewRoan.getEmpNo(),
+                                            reviewRoan.getLoanDt(),
+                                            reviewRoan.getAgreeYn()));
     }
 
     /**

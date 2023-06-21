@@ -5,14 +5,15 @@
 <mapper namespace="com.back.bank.model.dao.LoanDAO">
 
     <insert id="applyLoan">
-        INSERT INTO Loan (empNo, loanDt, loanAmt, monthRepayAmt, loanRate, loanBalance, repayFrom, repayTo, lastRepayDt, frepayYn, agreeYn)
-        VALUES (#{empNo}, #{loanDt}, #{loanAmt}, #{monthRepayAmt}, #{loanRate}, #{loanBalance}, #{repayFrom}, #{repayTo}, #{lastRepayDt}, #{frepayYn}, #{agreeYn})
+        INSERT INTO Loan (empNo, loanDt, loanAmt, monthRepayAmt, loanRate, loanBalance, repayFrom, repayTo, lastRepayDt, repayYn, agreeYn)
+        VALUES (#{empNo}, #{loanDt}, #{loanAmt}, #{monthRepayAmt}, #{loanRate}, #{loanBalance}, #{repayFrom}, #{repayTo}, #{lastRepayDt}, #{repayYn}, #{agreeYn})
     </insert>
 
     <update id="reviewLoan">
         UPDATE  Loan
         SET     agreeYn = #{agreeYn}
-        WHERE   loanId = #{loanId}
+        WHERE   empNo = #{empNo}
+        AND     loanDt = #{loanDt}
     </update>
 
     <select id="getLoanStatus" parameterType="String" resultType="com.back.bank.model.dto.Loan$Entity">

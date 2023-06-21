@@ -7,23 +7,29 @@ import java.util.Date;
 
 public class Loan {
     @Getter
-    @ToString
     public static class Entity{
         private String empNo;
         private Date loanDt;
-        private float loanAmt;
+        private Long loanAmt;
         private Long monthRepayAmt;
-        private Date loanRate;
+        private float loanRate;
         private Long loanBalance;
         private Date repayFrom;
         private Date repayTo;
         private Date lastRepayDt;
-        private boolean frepayYn;
-        private boolean agreeYn;
+        private Type repayYn;
+        private Type agreeYn;
     }
 
     public enum Type {
         AGREE,
         REJECT
+    }
+
+    @Getter
+    public static class Review {
+        private String empNo;
+        private Date loanDt;
+        private Type agreeYn;
     }
 }
