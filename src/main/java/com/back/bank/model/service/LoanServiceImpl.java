@@ -5,6 +5,8 @@ import com.back.bank.model.dto.Loan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,8 +24,9 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public boolean reviewLoan(String empNo, String loanDt, Loan.Type agreeYN) {
-        return loanDAO.reviewLoan(empNo, loanDt, agreeYN);
+    public boolean reviewLoan(String empNo, Date loanDt, Loan.Type agreeYN) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return loanDAO.reviewLoan(empNo, simpleDateFormat.format(loanDt), agreeYN);
     }
 
     @Override

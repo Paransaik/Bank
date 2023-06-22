@@ -30,7 +30,7 @@ public class Loan {
     @ToString
     public static class Review {
         private String empNo;
-        private String loanDt;
+        private Date loanDt;
         private Type agreeYn;
     }
 }
