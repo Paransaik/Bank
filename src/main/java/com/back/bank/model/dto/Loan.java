@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Loan {
     @Getter
-    public static class Entity{
+    public static class Entity {
         private String empNo;
         private Date loanDt;
         private Long loanAmt;
@@ -27,9 +27,10 @@ public class Loan {
     }
 
     @Getter
+    @ToString
     public static class Review {
         private String empNo;
-        private Date loanDt;
+        private String loanDt;
         private Type agreeYn;
     }
 }

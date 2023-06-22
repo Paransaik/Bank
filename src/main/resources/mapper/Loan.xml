@@ -9,7 +9,7 @@
         VALUES (#{empNo}, #{loanDt}, #{loanAmt}, #{monthRepayAmt}, #{loanRate}, #{loanBalance}, #{repayFrom}, #{repayTo}, #{lastRepayDt}, #{repayYn}, #{agreeYn})
     </insert>
 
-    <update id="reviewLoan">
+    <update id="reviewLoan" parameterType="map">
         UPDATE  Loan
         SET     agreeYn = #{agreeYn}
         WHERE   empNo = #{empNo}

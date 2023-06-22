@@ -5,6 +5,7 @@ import com.back.bank.model.dto.Loan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -23,13 +24,13 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public boolean reviewLoan(String empNo, Date loanDt, Loan.Type agreeYN) {
+    public boolean reviewLoan(String empNo, String loanDt, Loan.Type agreeYN) {
         return loanDAO.reviewLoan(empNo, loanDt, agreeYN);
     }
 
     @Override
-    public Loan.Entity getLoanStatus(String loanId) {
-        return loanDAO.getLoanStatus(loanId);
+    public Loan.Entity getLoanStatus(String empNo) {
+        return loanDAO.getLoanStatus(empNo);
     }
 
     @Override

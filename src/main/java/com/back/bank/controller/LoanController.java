@@ -29,7 +29,7 @@ public class LoanController {
     /**
      * 심사 및 승인 API
      */
-    @PostMapping("/review")
+    @PutMapping("/review")
     public ApiResult<?> reviewLoan(@RequestBody Loan.Review reviewRoan) {
         return ApiResult.succeed(loanService.reviewLoan(reviewRoan.getEmpNo(),
                                             reviewRoan.getLoanDt(),
@@ -39,9 +39,9 @@ public class LoanController {
     /**
      * 대출 상태 조회 API
      */
-    @GetMapping("/info/{loanId}")
-    public ApiResult<?> getLoanStatus(@PathVariable("loanId") String loanId) {
-        return ApiResult.succeed(loanService.getLoanStatus(loanId));
+    @GetMapping("/info/{empNo}")
+    public ApiResult<?> getLoanStatus(@PathVariable("empNo") String empNo) {
+        return ApiResult.succeed(loanService.getLoanStatus(empNo));
     }
 
     /**

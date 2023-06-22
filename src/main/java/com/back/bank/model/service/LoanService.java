@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface LoanService {
     boolean applyLoan(Loan.Entity loan);
-    boolean reviewLoan(String empNo, Date loanDt, Loan.Type agreeYn);
-    Loan.Entity getLoanStatus(String loanId);
+    boolean reviewLoan(String empNo, String loanDt, Loan.Type agreeYn);
+    Loan.Entity getLoanStatus(String empNo);
     List<Loan.Entity> getLoanHistory(String empNo);
 }
