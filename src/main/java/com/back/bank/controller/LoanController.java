@@ -32,9 +32,10 @@ public class LoanController {
      */
     @PutMapping("/review")
     public ApiResult<?> reviewLoan(@RequestBody Loan.Review reviewRoan) {
-        return ApiResult.succeed(loanService.reviewLoan(reviewRoan.getEmpNo(),
-                                            reviewRoan.getLoanDt(),
-                                            reviewRoan.getAgreeYn()));
+        return ApiResult.succeed(loanService.reviewLoan(
+                                    reviewRoan.getEmpNo(),
+                                    reviewRoan.getLoanDt(),
+                                    reviewRoan.getAgreeYn()));
     }
 
     /**

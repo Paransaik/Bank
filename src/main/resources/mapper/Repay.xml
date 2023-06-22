@@ -4,57 +4,24 @@
 
 <mapper namespace="com.back.bank.model.dao.RepayDAO">
 
-    <insert id="registerEmployee">
-        INSERT INTO Employee (empNo, nm, passwd, email, birthDt, enterDt, retireDt, deptCd, teamCd, gradeCd, positCd, phoneNo, addr)
-                VALUES (#{empNo}, #{nm}, #{passwd}, #{email}, #{birthDt}, #{enterDt}, #{retireDt}, #{deptCd}, #{teamCd}, #{gradeCd}, #{positCd}, #{phoneNo}, #{addr})
+    <insert id="repayLoan">
+        INSERT INTO Repay (empNo, loanDt, repayDt, beforeLoanBalance, loanRate, monthRepayAmt, repayRateAmt, repayFrom, repayTo)
+        VALUES (#{empNo}, #{loanDt}, #{repayDt}, #{beforeLoanBalance}, #{loanRate}, #{monthRepayAmt}, #{repayRateAmt}, #{repayFrom}, #{repayTo})
     </insert>
 
-    <update id="updateEmployee">
-        UPDATE  Employee
-        SET     nm      = #{nm},
-                passwd  = #{passwd},
-                email   = #{email},
-                birthDt = #{birthDt},
-                enterDt = #{enterDt},
-                retireDt= #{retireDt},
-                deptCd  = #{deptCd},
-                teamCd  = #{teamCd},
-                gradeCd = #{gradeCd},
-                positCd = #{positCd},
-                phoneNo = #{phoneNo},
-                addr    = #{addr}
-        WHERE   empNo   = #{empNo}
-    </update>
-
-    <delete id="deleteEmployee" parameterType="String">
-        DELETE
-        FROM    Employee
-        WHERE   empNo = #{empNo}
-    </delete>
-
-    <select id="loginEmployee" resultType="com.back.bank.model.dto.Employee$Entity">
+    <select id="getRepayInfoByLoanId" resultType="hashmap">
         SELECT  *
-        FROM    Employee
+        FROM    Repay
         WHERE   empNo = #{empNo}
-          AND   passwd = #{passwd}
+          AND   loanDt = #{loanDt}
+        ORDER BY loanDt DESC;
     </select>
 
-    <select id="checkPasswordFind" parameterType="Map" resultType="Int">
-        SELECT  count(id)
-        FROM    Employee
-        WHERE   emp_no = #{empNo}
-          AND   email = #{email}
-    </select>
-
-    <update id="updatePassword" parameterType="Map">
-        UPDATE  Employee
-        SET     password=sha2(concat(#{password}, #{salt}), 256), salt=#{salt}
-        WHERE   emp_no = #{empNo}
-    </update>
-
-    <select id="getEmployee" parameterType="String" resultType="com.back.bank.model.dto.Employee$Entity">
+    <select id="getRepayHistory" parameterType="String" resultType="hashmap">
         SELECT  *
-        FROM    Employee
+        FROM    Loan
         WHERE   empNo = #{empNo}
+        ORDER BY loanDt DESC;
     </select>
+
 </mapper>

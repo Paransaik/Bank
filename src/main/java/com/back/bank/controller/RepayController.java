@@ -1,8 +1,6 @@
 package com.back.bank.controller;
 
-import com.back.bank.model.dao.RepayDAO;
 import com.back.bank.model.dto.ApiResult;
-import com.back.bank.model.dto.Loan;
 import com.back.bank.model.dto.Repay;
 import com.back.bank.model.service.RepayService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +29,11 @@ public class RepayController {
     /**
      * 특정 대출에 대한 상환 정보 조회 API
      */
-    @GetMapping("/{loadId}")
-    public ApiResult<?> getRepayInfoByLoanId(@PathVariable("loanId") String loanId) {
-        return ApiResult.succeed(repayService.getRepayInfoByLoanId(loanId));
+    @GetMapping("/history")
+    public ApiResult<?> getRepayInfoByLoanId(@RequestBody Repay.Info infoRepay) {
+        return ApiResult.succeed(repayService.getRepayInfoByLoanId(
+                                    infoRepay.getEmpNo(),
+                                    infoRepay.getLoanDt()));
     }
 
     /**
@@ -42,21 +42,5 @@ public class RepayController {
     @GetMapping("/history/{empNo}")
     public ApiResult<?> getRepayHistory(@PathVariable("empNo") String empNo) {
         return ApiResult.succeed(repayService.getRepayHistory(empNo));
-    }
-
-    /**
-     * 상환 정보 수정 API
-     */
-    @PutMapping()
-    public void updateRepay() {
-
-    }
-
-    /**
-     * 상환 정보 삭제 API
-     */
-    @DeleteMapping
-    public void deleteRepay() {
-
     }
 }

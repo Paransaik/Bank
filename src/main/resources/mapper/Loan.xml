@@ -11,9 +11,9 @@
 
     <update id="reviewLoan" parameterType="map">
         UPDATE  Loan
-        SET     agreeYn = #{agreeYn}
+           SET  agreeYn = #{agreeYn}
         WHERE   empNo = #{empNo}
-        AND     loanDt = #{loanDt}
+          AND   loanDt = #{loanDt}
     </update>
 
     <select id="getLoanHistory" parameterType="String" resultType="hashmap">

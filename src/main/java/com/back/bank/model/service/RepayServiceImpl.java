@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,22 +26,14 @@ public class RepayServiceImpl implements RepayService {
     }
 
     @Override
-    public Repay.Entity getRepayInfoByLoanId(String loanId) {
-        return repayDAO.getRepayInfoByLoanId(loanId);
+    public List<Repay.Entity> getRepayInfoByLoanId(String empNo, Date loanDt) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return repayDAO.getRepayInfoByLoanId(empNo,
+                simpleDateFormat.format(loanDt));
     }
 
     @Override
     public List<Repay.Entity> getRepayHistory(String empNo) {
         return repayDAO.getRepayHistory(empNo);
-    }
-
-    @Override
-    public void updateRepay() {
-
-    }
-
-    @Override
-    public void deleteRepay() {
-
     }
 }

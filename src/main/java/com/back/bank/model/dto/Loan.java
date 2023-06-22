@@ -27,7 +27,6 @@ public class Loan {
     }
 
     @Getter
-    @ToString
     public static class Review {
         private String empNo;
         private Date loanDt;
