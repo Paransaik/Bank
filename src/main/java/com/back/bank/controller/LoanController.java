@@ -20,6 +20,7 @@ public class LoanController {
 
     /**
      * 대출 신청 API
+     * TODO: 당일 대출 하루에 하나 조건 검사
      */
     @PostMapping("/apply")
     public ApiResult<?> applyLoan(@RequestBody Loan.Entity loan) {
