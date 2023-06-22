@@ -16,16 +16,11 @@
         AND     loanDt = #{loanDt}
     </update>
 
-    <select id="getLoanStatus" parameterType="String" resultType="com.back.bank.model.dto.Loan$Entity">
-        SELECT  *
-        FROM    Loan
-        WHERE   loanId = #{loanId}
-    </select>
-
     <select id="getLoanHistory" parameterType="String" resultType="hashmap">
         SELECT  *
         FROM    Loan
         WHERE   empNo = #{empNo}
+        ORDER BY loanDt DESC;
     </select>
 
 </mapper>

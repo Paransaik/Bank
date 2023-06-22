@@ -37,14 +37,6 @@ public class LoanController {
     }
 
     /**
-     * 대출 상태 조회 API
-     */
-    @GetMapping("/info/{empNo}")
-    public ApiResult<?> getLoanStatus(@PathVariable("empNo") String empNo) {
-        return ApiResult.succeed(loanService.getLoanStatus(empNo));
-    }
-
-    /**
      * 대출 이력 조회 API
      */
     @GetMapping("/history/{empNo}")

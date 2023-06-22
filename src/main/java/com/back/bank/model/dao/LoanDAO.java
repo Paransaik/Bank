@@ -10,8 +10,6 @@ import java.util.List;
 public interface LoanDAO {
     boolean applyLoan(Loan.Entity loan);
 
-    Loan.Entity getLoanStatus(String loanId);
-
     boolean reviewLoan(@Param("empNo") String empNo, @Param("loanDt") String loanDt, @Param("agreeYn") Loan.Type agreeYn);
 
     List<Loan.Entity> getLoanHistory(String empNo);

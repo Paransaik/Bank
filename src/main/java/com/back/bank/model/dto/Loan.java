@@ -17,7 +17,7 @@ public class Loan {
         private Date repayFrom;
         private Date repayTo;
         private Date lastRepayDt;
-        private Type repayYn;
+        private boolean repayYn;
         private Type agreeYn;
     }
 
