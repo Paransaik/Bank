@@ -1,7 +1,5 @@
-package com.back.bank.model.service;
+package com.back.bank.model.Loan;
 
-import com.back.bank.model.dao.LoanDAO;
-import com.back.bank.model.dto.Loan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

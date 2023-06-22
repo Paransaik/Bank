@@ -1,6 +1,4 @@
-package com.back.bank.model.service;
-
-import com.back.bank.model.dto.Employee;
+package com.back.bank.model.Employee;
 
 public interface EmployeeService {
     void registerEmployee(Employee.Entity employee) throws Exception;

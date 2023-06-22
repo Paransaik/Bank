@@ -1,4 +1,4 @@
-package com.back.bank.model.dto;
+package com.back.bank.model.Repay;
 
 import lombok.Getter;
 

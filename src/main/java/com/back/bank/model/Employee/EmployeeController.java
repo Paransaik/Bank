@@ -1,11 +1,9 @@
-package com.back.bank.controller;
+package com.back.bank.model.Employee;
 
 import com.back.bank.exception.ErrorCode;
 import com.back.bank.model.dto.ApiResult;
-import com.back.bank.model.dto.Employee;
 import com.back.bank.model.dto.Token;
-import com.back.bank.model.service.EmployeeService;
-import com.back.bank.model.service.JwtService;
+import com.back.bank.Auth.JwtService;
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

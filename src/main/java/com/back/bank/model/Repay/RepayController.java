@@ -1,8 +1,6 @@
-package com.back.bank.controller;
+package com.back.bank.model.Repay;
 
 import com.back.bank.model.dto.ApiResult;
-import com.back.bank.model.dto.Repay;
-import com.back.bank.model.service.RepayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

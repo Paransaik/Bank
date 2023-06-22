@@ -1,6 +1,6 @@
 package com.back.bank.config;
 
-import com.back.bank.interceptor.JwtInterceptor;
+import com.back.bank.Auth.JwtInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

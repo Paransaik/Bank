@@ -1,6 +1,4 @@
-package com.back.bank.model.service;
-
-import com.back.bank.model.dto.Loan;
+package com.back.bank.model.Loan;
 
 import java.util.Date;
 import java.util.List;

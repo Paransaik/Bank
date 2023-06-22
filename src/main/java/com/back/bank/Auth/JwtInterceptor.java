@@ -1,6 +1,5 @@
-package com.back.bank.interceptor;
+package com.back.bank.Auth;
 
-import com.back.bank.model.service.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

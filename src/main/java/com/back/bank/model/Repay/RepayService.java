@@ -1,7 +1,4 @@
-package com.back.bank.model.service;
-
-import com.back.bank.model.dto.Repay;
-import org.apache.ibatis.annotations.Param;
+package com.back.bank.model.Repay;
 
 import java.util.Date;
 import java.util.List;

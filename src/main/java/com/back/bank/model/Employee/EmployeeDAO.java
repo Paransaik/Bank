@@ -1,6 +1,5 @@
-package com.back.bank.model.dao;
+package com.back.bank.model.Employee;
 
-import com.back.bank.model.dto.Employee;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

@@ -1,4 +1,4 @@
-package com.back.bank.model.dto;
+package com.back.bank.model.Loan;
 
 import lombok.Getter;
 import lombok.ToString;

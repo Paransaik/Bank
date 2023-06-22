@@ -1,11 +1,7 @@
-package com.back.bank.model.service;
+package com.back.bank.model.Repay;
 
-import com.back.bank.model.dao.RepayDAO;
-import com.back.bank.model.dto.ApiResult;
-import com.back.bank.model.dto.Repay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

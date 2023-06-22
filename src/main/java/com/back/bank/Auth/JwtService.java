@@ -1,4 +1,4 @@
-package com.back.bank.model.service;
+package com.back.bank.Auth;
 
 import com.back.bank.model.dto.Token;
 import io.jsonwebtoken.Claims;

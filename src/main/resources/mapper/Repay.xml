@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.back.bank.model.dao.RepayDAO">
+<mapper namespace="com.back.bank.model.Repay.RepayDAO">
 
     <insert id="repayLoan">
         INSERT INTO Repay (empNo, loanDt, repayDt, beforeLoanBalance, loanRate, monthRepayAmt, repayRateAmt, repayFrom, repayTo)
