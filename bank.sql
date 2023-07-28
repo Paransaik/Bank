@@ -9,20 +9,22 @@
 /*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
 
+use bank;
+show tables;
+
 CREATE TABLE EMPLOYEE
 (
-    empNo     varchar(8)  NOT NULL,
+    empno     varchar(8)  NOT NULL,
     nm        varchar(20) NOT NULL,
-    passwd    varchar(100)NOT NULL,
-    email     varchar(30) NOT NULL,
-    birthDt   date,
-    enterDt   date,
-    retireDt  date,
-    deptCd    varchar(4),
-    teamCd    varchar(4),
-    gradeCd   varchar(2),
-    positCd   varchar(2),
-    phoneNo   varchar(20),
+    birth_dt  date,
+    enter_dt  date,
+    retire_dt date,
+    dept_cd   varchar(4),
+    team_cd   varchar(4),
+    grade_cd  varchar(2),
+    posit_cd  varchar(2),
+    phone_no  varchar(20),
+    mphone_no varchar(20),
     addr      varchar(100)
 );
 insert into EMPLOYEE
@@ -44,46 +46,45 @@ values ('1009', '홍길순', '1985-04-03', '2022-07-22', NULL, '', '1010', '30',
 insert into EMPLOYEE
 values ('1010', '정태영', '1997-04-19', '2022-08-22', NULL, '', '1010', '30', '', '', '', '');
 
-CREATE TABLE LOAN
+CREATE TABLE LAON
 (
-    empNo         varchar(8) NOT NULL,
-    loanDt        date NOT NULL,
-    loanAmt       int(10) NOT NULL,
-    monthRepayAmt int(10),
-    loanRate      float(5),
-    loanBalance   int(10),
-    repayFrom     date,
-    repayTo       date,
-    lastRepayDt   date,
-    repayYn      varchar(6),
-    agreeYn      varchar(6)
+    empno           varchar(8) NOT NULL,
+    loan_dt         date NOT NULL,
+    loan_amt        int(10) NOT NULL,
+    month_repay_amt int(10),
+    loan_rate       float(5),
+    loan_balance    int(10),
+    repay_from      date,
+    repay_to        date,
+    last_repay_dt   date,
+    frepay_yn       varchar(1) NOT NULL default '' ''
 );
-insert into LOAN
+insert into LAON
 values ('1000', '2022-01-20', '5000000', '400000', '3.00', '5000000', '2022-03-20', '2023-03-20', NULL, 'N');
-insert into LOAN
+insert into LAON
 values ('1001', '2022-02-17', '6000000', '400000', '3.20', '6000000', '2022-04-20', '2023-06-20', NULL, 'N');
-insert into LOAN
+insert into LAON
 values ('1002', '2022-01-25', '1000000', '800000', '3.00', '1000000', '2022-03-20', '2022-04-20', NULL, 'N');
-insert into LOAN
+insert into LAON
 values ('1003', '2020-02-10', '5000000', '350000', '3.00', '0', '2020-03-20', '2021-05-20', NULL, 'Y');
-insert into LOAN
+insert into LAON
 values ('1004', '2022-03-15', '6000000', '400000', '4.50', '6000000', '2022-04-20', '2023-06-20', NULL, 'N');
-insert into LOAN
+insert into LAON
 values ('1005', '2022-01-07', '5000000', '600000', '3.50', '5000000', '2022-05-20', '2023-01-20', NULL, 'N');
-insert into LOAN
+insert into LAON
 values ('1006', '2022-01-15', '5000000', '500000', '2.00', '5000000', '2022-04-20', '2023-01-20', NULL, 'N');
-insert into LOAN
+insert into LAON
 values ('1007', '2022-01-10', '5000000', '350000', '2.50', '5000000', '2022-05-20', '2023-07-20', NULL, 'N');
 
 CREATE TABLE REPAY
 (
-    empNo             varchar(8) NOT NULL,
-    loanDt            date NOT NULL,
-    repayDt           date NOT NULL,
-    beforeLoanBalance int(10),
-    loanRate          float(5),
-    monthRepayAmt     int(10),
-    repayRateAmt      int(10),
-    repayFrom         date,
-    repayTo           date
+    empno               varchar(8) NOT NULL,
+    loan_dt             date NOT NULL,
+    repay_dt            date NOT NULL,
+    before_loan_balance int(10),
+    loan_rate           float(5),
+    month_repay_amt     int(10),
+    repay_rate_amt      int(10),
+    repay_from          date,
+    repay_to            date
 );
